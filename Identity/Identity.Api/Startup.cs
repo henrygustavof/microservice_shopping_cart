@@ -43,6 +43,10 @@
             services.AddIdentity<User, Role>(options =>
             {
                 options.Lockout = lockoutOptions;
+                options.SignIn.RequireConfirmedEmail = Convert.ToBoolean(Configuration["Account:RequireConfirmedEmail"]);
+                options.User.RequireUniqueEmail = true;
+                options.Password.RequiredLength = Convert.ToInt32(Configuration["Account:PasswordRequiredLength"]);
+
             }).AddEntityFrameworkStores<IdentityContext>().AddDefaultTokenProviders();
 
             services.Configure<DataProtectionTokenProviderOptions>(options =>

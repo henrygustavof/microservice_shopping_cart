@@ -1,11 +1,13 @@
 ﻿namespace Identity.Application.Service
 {
-    using Identity.Application.Dto.Input;
-    using Identity.Application.Dto.Output;
+    using Dto.Input;
+    using Dto.Output;
     using System.Threading.Tasks;
 
     public interface IAuthApplicationService
     {
-        Task<JwTokenDto> PerformAuthentication(LoginDto login);
+        Task<JwTokenDto> PerformAuthentication(LoginDto model);
+
+        Task<JwTokenDto> PerformRegistration(RegisterDto model);
     }
 }

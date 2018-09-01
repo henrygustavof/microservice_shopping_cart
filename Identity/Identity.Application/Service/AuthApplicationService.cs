@@ -28,24 +28,82 @@
             _config = config;
         }
 
-        public async Task<JwTokenDto> PerformAuthentication(LoginDto login)
+        public async Task<JwTokenDto> PerformAuthentication(LoginDto model)
         {
-
-            Notification notification = await Validation(login);
+  
+            Notification notification = await ValidateAuthentication(model);
 
             if (notification.HasErrors())
             {
                 throw new ArgumentException(notification.ErrorMessage());
             }
 
-            return  await GenerateToken(login);
+            return  await GenerateToken(model.Email);
         }
 
-        private async Task<Notification> Validation(LoginDto login)
+        public async Task<JwTokenDto> PerformRegistration(RegisterDto model)
+        {
+            Notification notification = await ValidateRegistration(model);
+
+            if (notification.HasErrors())
+            {
+                throw new ArgumentException(notification.ErrorMessage());
+            }
+
+            return await GenerateToken(model.Email);
+        }
+
+        private async Task<Notification> ValidateRegistration(RegisterDto model)
         {
             Notification notification = new Notification();
 
-            User user = await _userInMgr.FindByEmailAsync(login.Email);
+            if (model == null || string.IsNullOrEmpty(model.Email)
+                                  || string.IsNullOrEmpty(model.UserName)
+                                  || string.IsNullOrEmpty(model.Password)
+                                  )
+                
+            {
+                notification.AddError("Invalid JSON data in request body");
+                return notification;
+            }
+
+            if (model.UserName.Length < int.Parse(_config["Account:UserNameRequiredLength"]))
+            {
+                notification.AddError($"UserName must have at least {_config["Account:UserNameRequiredLength"]} characters.");
+                return notification;
+            }
+
+            var user = new User
+            {
+                UserName = model.UserName,
+                Email = model.Email
+            };
+
+            var result = await _userInMgr.CreateAsync(user, model.Password);
+
+            if (!result.Succeeded)
+            {
+                notification.AddError(string.Join(". ", from item in result.Errors select item.Description));
+                return notification;
+            }
+
+            await _signInMgr.SignInAsync(user, false);
+
+            return notification;
+
+        }
+
+        private async Task<Notification> ValidateAuthentication(LoginDto model)
+        {
+            Notification notification = new Notification();
+
+            if (model == null)
+            {
+                notification.AddError("Invalid JSON data in request body");
+                return notification;
+            }
+
+            User user = await _userInMgr.FindByEmailAsync(model.Email);
 
             if (user == null)
             {
@@ -66,7 +124,7 @@
                 return notification;
             }
 
-            var validCredentials = await _userInMgr.CheckPasswordAsync(user, login.Password);
+            var validCredentials = await _userInMgr.CheckPasswordAsync(user, model.Password);
 
             if (await _userInMgr.IsLockedOutAsync(user))
             {
@@ -91,7 +149,6 @@
 
                 int attemptsLeft = Convert.ToInt32(_config["Account:MaxFailedAccessAttemptsBeforeLockout"]) - accessFailedCount;
 
-
                 notification.AddError(string.Format(
                                     "Invalid credentials. You have {0} more attempt(s) before your account gets locked out..",
                                     attemptsLeft));
@@ -109,7 +166,7 @@
 
             await _userInMgr.ResetAccessFailedCountAsync(user);
 
-            var signInStatus = await _signInMgr.PasswordSignInAsync(user.UserName, login.Password, login.RememberMe, false);
+            var signInStatus = await _signInMgr.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, false);
 
             if (signInStatus.IsNotAllowed)
             {
@@ -120,9 +177,9 @@
             return notification;
         }
 
-        private async Task<JwTokenDto> GenerateToken(LoginDto login)
+        private async Task<JwTokenDto> GenerateToken(string email)
         {
-            var user = await _userInMgr.FindByEmailAsync(login.Email);
+            User user = await _userInMgr.FindByEmailAsync(email);
 
             var userClaims = await _userInMgr.GetClaimsAsync(user);
             var userRoles = await _userInMgr.GetRolesAsync(user);
