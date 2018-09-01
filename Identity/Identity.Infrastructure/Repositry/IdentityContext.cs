@@ -12,12 +12,6 @@
 
         }
 
-
-        public virtual DbSet<User> User { get; set; }
-
-        public virtual DbSet<Role> Role { get; set; }
-
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
