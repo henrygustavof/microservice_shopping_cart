@@ -4,12 +4,12 @@
     using System.Linq;
     using Domain.Repository;
     using Microsoft.EntityFrameworkCore;
-
+    using Utils;
     public abstract class BaseRepository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         protected readonly DbContext Context;
 
-        public BaseRepository(DbContext context)
+        protected BaseRepository(DbContext context)
         {
             Context = context;
         }
@@ -31,7 +31,7 @@
 
             var skip = (pageNumber - 1) * pageSize;
             return Context.Set<TEntity>()
-               /// .OrderBy(sortBy, sortDirection)
+                .OrderBy(sortBy, sortDirection)
                 .Skip(skip)
                 .Take(pageSize);
         }

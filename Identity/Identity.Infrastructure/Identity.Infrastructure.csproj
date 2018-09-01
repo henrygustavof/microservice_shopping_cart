@@ -5,7 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Migration\" />
+    <Compile Remove="Migration\**" />
+    <EmbeddedResource Remove="Migration\**" />
+    <None Remove="Migration\**" />
   </ItemGroup>
 
   <ItemGroup>

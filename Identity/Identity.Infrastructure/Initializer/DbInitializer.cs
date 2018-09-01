@@ -1,7 +1,7 @@
 ﻿namespace Identity.Infrastructure.Initializer
 {
     using Domain.Entity;
-    using Infrastructure.Repositry;
+    using Repositry;
     using Microsoft.AspNetCore.Identity;
     using System;
     using System.Security.Claims;
