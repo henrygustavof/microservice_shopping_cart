@@ -1,4 +1,4 @@
-﻿namespace Identity.Infraestructure.Utils
+﻿namespace Identity.Infrastructure.Utils
 {
     using System;
     using System.Linq;

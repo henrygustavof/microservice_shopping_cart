@@ -1,108 +1,159 @@
 ﻿namespace Identity.Application.Service
 {
-    using Identity.Application.Dto.Input;
-    using Identity.Application.Dto.Output;
-    using Identity.Application.Notification;
-    using Identity.Domain.Entity;
+    using Dto.Input;
+    using Dto.Output;
+    using Notification;
+    using Domain.Entity;
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.Extensions.Configuration;
     using System;
+    using System.Linq;
+    using System.Security.Claims;
+    using System.Text;
     using System.Threading.Tasks;
+    using System.IdentityModel.Tokens.Jwt;
+    using Microsoft.IdentityModel.Tokens;
 
     public class AuthApplicationService: IAuthApplicationService
     {
         private readonly SignInManager<User> _signInMgr;
         private readonly UserManager<User> _userInMgr;
+        private readonly IConfiguration _config;
 
         public AuthApplicationService(SignInManager<User> signInMgr,
-            UserManager<User> userInMgr)
+            UserManager<User> userInMgr, IConfiguration config)
         {
             _signInMgr = signInMgr;
             _userInMgr = userInMgr;
+            _config = config;
         }
 
         public async Task<JwTokenDto> PerformAuthentication(LoginDto login)
         {
 
-            Notification notification = new Notification();
+            Notification notification = await Validation(login);
 
             if (notification.HasErrors())
             {
                 throw new ArgumentException(notification.ErrorMessage());
             }
 
+            return  await GenerateToken(login);
+        }
+
+        private async Task<Notification> Validation(LoginDto login)
+        {
+            Notification notification = new Notification();
+
             User user = await _userInMgr.FindByEmailAsync(login.Email);
 
-            if (user != null)
-            {
-
-                if (user.Disabled)
-                {
-                    notification.AddError("Your account is disabled, please contact with the web master");
-                    
-                }
-
-                if (!user.EmailConfirmed)
-                {
-
-                    notification.AddError("Please confirm your email or contact with the web master");
-                }
-
-                var validCredentials = await _userInMgr.CheckPasswordAsync(user, login.Password);
-
-                // When a user is lockedout, this check is done to ensure that even if the credentials are valid
-                // the user can not login until the lockout duration has passed
-                if (await _userInMgr.IsLockedOutAsync(user))
-                {
-                    notification.AddError("Your account has been locked out due to multiple failed login attempts.");
-                    
-                }
-                // if user is subject to lockouts and the credentials are invalid
-                // record the failure and check if user is lockedout and display message, otherwise,
-                // display the number of attempts remaining before lockout
-                else if (await _userInMgr.GetLockoutEnabledAsync(user) && !validCredentials)
-                {
-                    // Record the failure which also may cause the user to be locked out
-                    await _userInMgr.AccessFailedAsync(user);
-
-                    if (await _userInMgr.IsLockedOutAsync(user))
-                    {
-                        notification.AddError("Your account has been locked out due to multiple failed login attempts.");
-                    }
-                    else
-                    {
-                        int accessFailedCount = await _userInMgr.GetAccessFailedCountAsync(user);
-
-                        notification.AddError("Invalid credentials. You have few more attempt(s) before your account gets locked out..");
-                    }
-                    
-                }
-                else if (!validCredentials)
-                {
-                    notification.AddError("Invalid credentials. Please try again.");                }
-                else
-                {
-                    await _userInMgr.ResetAccessFailedCountAsync(user);
-
-                   var signInStatus = await _signInMgr.PasswordSignInAsync(user.UserName, login.Password, login.RememberMe, false);
-
-                    if (signInStatus.Succeeded)
-                    {
-                        return new JwTokenDto { access_token ="token" };
-                    }
-
-                    if (signInStatus.IsNotAllowed)
-                    {
-                        notification.AddError("Invalid credentials.Please try again.");
-
-                    }
-                }
-            }
-            else
+            if (user == null)
             {
                 notification.AddError("Invalid credentials.Please try again.");
+                return notification;
             }
 
-            return new JwTokenDto { access_token = "error_token" };
+            if (user.Disabled)
+            {
+                notification.AddError("Your account is disabled, please contact with the web master");
+                return notification;
+
+            }
+
+            if (!user.EmailConfirmed)
+            {
+                notification.AddError("Please confirm your email or contact with the web master");
+                return notification;
+            }
+
+            var validCredentials = await _userInMgr.CheckPasswordAsync(user, login.Password);
+
+            if (await _userInMgr.IsLockedOutAsync(user))
+            {
+                notification.AddError($"Your account has been locked out for {_config["Account:DefaultAccountLockoutTimeSpan"]} minutes due to multiple failed login attempts.");
+                return notification;
+            }
+
+            if (await _userInMgr.GetLockoutEnabledAsync(user) && !validCredentials)
+            {
+                await _userInMgr.AccessFailedAsync(user);
+
+                if (await _userInMgr.IsLockedOutAsync(user))
+                {
+                    notification.AddError(string.Format(
+                                    "Your account has been locked out for {0} minutes due to multiple failed login attempts.",
+                                    _config["Account:DefaultAccountLockoutTimeSpan"]));
+
+                    return notification;
+                }
+
+                int accessFailedCount = await _userInMgr.GetAccessFailedCountAsync(user);
+
+                int attemptsLeft = Convert.ToInt32(_config["Account:MaxFailedAccessAttemptsBeforeLockout"]) - accessFailedCount;
+
+
+                notification.AddError(string.Format(
+                                    "Invalid credentials. You have {0} more attempt(s) before your account gets locked out..",
+                                    attemptsLeft));
+
+                return notification;
+
+            }
+
+            if (!validCredentials)
+            {
+                notification.AddError("Invalid credentials. Please try again.");
+                return notification;
+
+            }
+
+            await _userInMgr.ResetAccessFailedCountAsync(user);
+
+            var signInStatus = await _signInMgr.PasswordSignInAsync(user.UserName, login.Password, login.RememberMe, false);
+
+            if (signInStatus.IsNotAllowed)
+            {
+                notification.AddError("Invalid credentials.Please try again.");
+                return notification;
+            }
+
+            return notification;
+        }
+
+        private async Task<JwTokenDto> GenerateToken(LoginDto login)
+        {
+            var user = await _userInMgr.FindByEmailAsync(login.Email);
+
+            var userClaims = await _userInMgr.GetClaimsAsync(user);
+            var userRoles = await _userInMgr.GetRolesAsync(user);
+            var claims = new[]
+            {
+                        new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                        new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
+                        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                        new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                        new Claim("role", userRoles.Any()? userRoles[0] : string.Empty)
+                    }.Union(userClaims);
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
+
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var token = new JwtSecurityToken(
+
+                _config["Tokens:Issuer"],
+                _config["Tokens:Issuer"],
+                claims,
+                expires: DateTime.UtcNow.AddMinutes(Convert.ToInt32(_config["Tokens:ExpirationTimeTokenInMin"])),
+                signingCredentials: creds
+
+            );
+
+            return new JwTokenDto
+            {
+                access_token = new JwtSecurityTokenHandler().WriteToken(token),
+            };
+
         }
     }
 }

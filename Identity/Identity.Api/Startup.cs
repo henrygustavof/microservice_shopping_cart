@@ -1,23 +1,24 @@
 ﻿namespace Identity.Api
 {
+    using System;
+    using System.Security.Claims;
+    using System.Text;
     using AutoMapper;
-    using Identity.Api.Middleware;
-    using Identity.Api.Response;
-    using Identity.Application.Service;
-    using Identity.Domain.Entity;
-    using Identity.Domain.Repository;
-    using Identity.Infraestructure.Repositry;
-    using Identity.Infrastructure.Initializer;
+    using Middleware;
+    using Response;
+    using Application.Service;
+    using Domain.Entity;
+    using Domain.Repository;
+    using Infrastructure.Repositry;
+    using Infrastructure.Initializer;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.IdentityModel.Tokens;
-    using System;
-    using System.Security.Claims;
-    using System.Text;
 
     public class Startup
     {
@@ -35,7 +36,7 @@
             var lockoutOptions = new LockoutOptions
             {
                 AllowedForNewUsers = Convert.ToBoolean(Configuration["Account:UserLockoutEnabledByDefault"]),
-                DefaultLockoutTimeSpan = TimeSpan.FromMinutes(Double.Parse(Configuration["Account:DefaultAccountLockoutTimeSpan"])),
+                DefaultLockoutTimeSpan = TimeSpan.FromMinutes(double.Parse(Configuration["Account:DefaultAccountLockoutTimeSpan"])),
                 MaxFailedAccessAttempts = Convert.ToInt32(Configuration["Account:MaxFailedAccessAttemptsBeforeLockout"])
             };
 
@@ -91,17 +92,17 @@
             services.AddMvc(options =>
             {
                 options.Filters.Add(
-                    new Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute(typeof(ErrorResponse), 400));
+                    new ProducesResponseTypeAttribute(typeof(ErrorResponse), 400));
                 options.Filters.Add(
-                    new Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute(typeof(ErrorResponse), 401));
+                    new ProducesResponseTypeAttribute(typeof(ErrorResponse), 401));
                 options.Filters.Add(
-                    new Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute(typeof(ErrorResponse), 403));
+                    new ProducesResponseTypeAttribute(typeof(ErrorResponse), 403));
                 options.Filters.Add(
-                    new Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute(typeof(ErrorResponse), 404));
+                    new ProducesResponseTypeAttribute(typeof(ErrorResponse), 404));
                 options.Filters.Add(
-                    new Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute(typeof(ErrorResponse), 415));
+                    new ProducesResponseTypeAttribute(typeof(ErrorResponse), 415));
                 options.Filters.Add(
-                    new Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute(typeof(ErrorResponse), 500));
+                    new ProducesResponseTypeAttribute(typeof(ErrorResponse), 500));
             });
 
         }

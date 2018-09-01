@@ -1,7 +1,7 @@
 ﻿namespace Identity.Infrastructure.Initializer
 {
-    using Identity.Domain.Entity;
-    using Identity.Infraestructure.Repositry;
+    using Domain.Entity;
+    using Infrastructure.Repositry;
     using Microsoft.AspNetCore.Identity;
     using System;
     using System.Security.Claims;
@@ -12,16 +12,13 @@
         private readonly RoleManager<Role> _roleMgr;
         private readonly UserManager<User> _userMgr;
 
-        private readonly IdentityContext _context;
-
         public DbInitializer(IdentityContext context, UserManager<User> userMgr,
                              RoleManager<Role> roleMgr)
         {
             _userMgr = userMgr;
             _roleMgr = roleMgr;
 
-            _context = context;
-            _context.Database.EnsureCreated();
+            context.Database.EnsureCreated();
 
         }
 

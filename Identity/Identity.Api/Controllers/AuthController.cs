@@ -1,8 +1,8 @@
 ﻿namespace Identity.Api.Controllers
 {
-    using Identity.Application.Dto.Input;
-    using Identity.Application.Dto.Output;
-    using Identity.Application.Service;
+    using Application.Dto.Input;
+    using Application.Dto.Output;
+    using Application.Service;
     using Microsoft.AspNetCore.Mvc;
     using System.Threading.Tasks;
  
@@ -10,7 +10,7 @@
     [Route("api/auth")]
     public class AuthController : Controller
     {
-        public  IAuthApplicationService _authApplicationService;
+        private readonly  IAuthApplicationService _authApplicationService;
 
         public AuthController(IAuthApplicationService authApplicationService)
         {

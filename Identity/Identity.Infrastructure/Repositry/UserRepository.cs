@@ -1,7 +1,7 @@
-﻿namespace Identity.Infraestructure.Repositry
+﻿namespace Identity.Infrastructure.Repositry
 {
-    using Identity.Domain.Entity;
-    using Identity.Domain.Repository;
+    using Domain.Entity;
+    using Domain.Repository;
 
     public class UserRepository : BaseRepository<User>, IUserRepository
     {

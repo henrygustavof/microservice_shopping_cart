@@ -1,6 +1,6 @@
 ﻿namespace Identity.Api.Middleware
 {
-    using Identity.Api.Response;
+    using Response;
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Logging;
     using Newtonsoft.Json;

@@ -1,6 +1,6 @@
 ﻿namespace Identity.Domain.Repository
 {
-    using Identity.Domain.Entity;
+    using Entity;
 
     public interface IUserRepository: IRepository<User>
     {

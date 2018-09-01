@@ -1,4 +1,4 @@
-﻿namespace Identity.Infraestructure.Repositry
+﻿namespace Identity.Infrastructure.Repositry
 {
     using Identity.Domain.Entity;
     using Microsoft.AspNetCore.Identity;

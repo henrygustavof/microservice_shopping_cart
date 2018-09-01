@@ -1,9 +1,10 @@
-﻿namespace Identity.Infraestructure.Repositry
+﻿namespace Identity.Infrastructure.Repositry
 {
-    using Identity.Domain.Repository;
-    using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
     using System.Linq;
+    using Domain.Repository;
+    using Microsoft.EntityFrameworkCore;
+
     public abstract class BaseRepository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         protected readonly DbContext Context;

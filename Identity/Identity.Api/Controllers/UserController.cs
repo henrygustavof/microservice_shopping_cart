@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-
-namespace Identity.Api.Controllers
+﻿namespace Identity.Api.Controllers
 {
+    using Microsoft.AspNetCore.Mvc;
+
     [Produces("application/json")]
     [Route("api/users")]
     public class UserController : Controller

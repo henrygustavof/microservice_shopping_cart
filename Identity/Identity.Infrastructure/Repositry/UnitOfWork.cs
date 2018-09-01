@@ -1,6 +1,6 @@
-﻿namespace Identity.Infraestructure.Repositry
+﻿namespace Identity.Infrastructure.Repositry
 {
-    using Identity.Domain.Repository;
+    using Domain.Repository;
 
     public class UnitOfWork: IUnitOfWork
     {
