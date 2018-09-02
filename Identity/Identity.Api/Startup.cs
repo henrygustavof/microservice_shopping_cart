@@ -74,6 +74,8 @@
                 cfg.AddPolicy("Member", p => p.RequireClaim(ClaimTypes.Role, "member"));
             });
 
+            var tokenKey = Environment.GetEnvironmentVariable("TOKEN_KEY") ?? Configuration["Jwt:Key"];
+
             services.AddAuthentication().AddJwtBearer(cfg =>
             {
                 cfg.RequireHttpsMetadata = false;
@@ -83,7 +85,7 @@
                 {
                     ValidIssuer = Configuration["Jwt:Issuer"],
                     ValidAudience = Configuration["Jwt:Audience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenKey))
                 };
             });
 
