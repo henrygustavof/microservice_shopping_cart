@@ -203,7 +203,7 @@
                 _config["Jwt:Issuer"],
                 _config["Jwt:Audience"],
                 claims,
-                expires: DateTime.UtcNow.AddMinutes(Convert.ToInt32(_config["Tokens:ExpirationTimeTokenInMin"])),
+                expires: DateTime.UtcNow.AddMinutes(Convert.ToInt32(_config["Account:ExpirationTimeTokenInMin"])),
                 signingCredentials: creds
 
             );
