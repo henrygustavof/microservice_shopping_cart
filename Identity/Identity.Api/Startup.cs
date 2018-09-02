@@ -33,7 +33,9 @@
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<IdentityContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SqlConnection")));
+            var connectionString = Environment.GetEnvironmentVariable("SHOPPING_CART_CONECTION_STRING") ?? Configuration.GetConnectionString("SqlConnection");
+
+            services.AddDbContext<IdentityContext>(options => options.UseSqlServer(connectionString));
             var lockoutOptions = new LockoutOptions
             {
                 AllowedForNewUsers = Convert.ToBoolean(Configuration["Account:UserLockoutEnabledByDefault"]),
@@ -132,8 +134,10 @@
                 .UseDefaultFiles(options)
                 .UseStaticFiles();
 
-            seeder.Seed().Wait();
-
+            if (env.IsDevelopment())
+            {
+                seeder.Seed().Wait();
+            }
         }
     }
 }

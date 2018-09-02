@@ -1,0 +1,20 @@
+version: "3.2"
+
+networks:
+  backend:
+
+
+services:
+
+  identity:
+    image: henrygustavo/shopping_cart_identity
+    build: 
+      context: ./identity
+      dockerfile: Dockerfile
+    environment: 
+      - ASPNETCORE_ENVIRONMENT=Production
+    container_name: identityapi
+    ports:
+      - "9001:80"
+    networks:
+      - backend
