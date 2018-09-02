@@ -51,7 +51,7 @@
             Context.Set<TEntity>().Update(entity);
         }
 
-        public void Remove(TEntity entity)
+        public void Delete(TEntity entity)
         {
             Context.Set<TEntity>().Remove(entity);
         }

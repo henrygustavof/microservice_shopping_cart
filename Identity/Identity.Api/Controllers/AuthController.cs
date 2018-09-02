@@ -2,10 +2,10 @@
 {
     using Application.Dto.Input;
     using Application.Dto.Output;
-    using Application.Service;
+    using Identity.Application.Service.Interfaces;
     using Microsoft.AspNetCore.Mvc;
     using System.Threading.Tasks;
- 
+
     [Produces("application/json")]
     [Route("api/auth")]
     public class AuthController : Controller

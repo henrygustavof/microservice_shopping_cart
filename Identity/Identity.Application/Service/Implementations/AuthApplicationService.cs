@@ -1,4 +1,4 @@
-﻿namespace Identity.Application.Service
+﻿namespace Identity.Application.Service.Implementations
 {
     using Dto.Input;
     using Dto.Output;
@@ -13,6 +13,7 @@
     using System.Threading.Tasks;
     using System.IdentityModel.Tokens.Jwt;
     using Microsoft.IdentityModel.Tokens;
+    using Identity.Application.Service.Interfaces;
 
     public class AuthApplicationService: IAuthApplicationService
     {
@@ -183,13 +184,14 @@
 
             var userClaims = await _userInMgr.GetClaimsAsync(user);
             var userRoles = await _userInMgr.GetRolesAsync(user);
+            var role = userRoles.Any() ? userRoles[0] : string.Empty;
             var claims = new[]
             {
                         new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                         new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
                         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                         new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                        new Claim("role", userRoles.Any()? userRoles[0] : string.Empty)
+                        new Claim("role", role)
                     }.Union(userClaims);
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));

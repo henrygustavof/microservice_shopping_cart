@@ -6,7 +6,6 @@
     using AutoMapper;
     using Middleware;
     using Response;
-    using Application.Service;
     using Domain.Entity;
     using Domain.Repository;
     using Infrastructure.Repositry;
@@ -19,6 +18,8 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.IdentityModel.Tokens;
+    using Identity.Application.Service.Interfaces;
+    using Identity.Application.Service.Implementations;
 
     public class Startup
     {
@@ -55,6 +56,8 @@
             });
 
             services.AddScoped<IAuthApplicationService, AuthApplicationService>();
+            services.AddScoped<IRoleApplicationService, RoleApplicationService>();
+            services.AddScoped<IUserApplicationService, UserApplicationService>();
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();

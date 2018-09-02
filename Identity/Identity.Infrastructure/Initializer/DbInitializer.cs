@@ -36,9 +36,11 @@
             // Add User
             if (user == null)
             {
-                if (!await _roleMgr.RoleExistsAsync("Admin"))
+                string roleName = "admin";
+
+                if (!await _roleMgr.RoleExistsAsync(roleName))
                 {
-                    var role = new Role { Name = "Admin" };
+                    var role = new Role { Name = roleName };
                     await _roleMgr.CreateAsync(role);
                 }
 
@@ -51,8 +53,8 @@
                 };
 
                 var userResult = await _userMgr.CreateAsync(user, "P@$$w0rd");
-                var roleResult = await _userMgr.AddToRoleAsync(user, "Admin");
-                var claimResult = await _userMgr.AddClaimAsync(user, new Claim(ClaimTypes.Role, "Admin"));
+                var roleResult = await _userMgr.AddToRoleAsync(user, roleName);
+                var claimResult = await _userMgr.AddClaimAsync(user, new Claim(ClaimTypes.Role, roleName));
 
                 if (!userResult.Succeeded || !roleResult.Succeeded || !claimResult.Succeeded)
                 {
@@ -69,9 +71,11 @@
             // Add User
             if (user == null)
             {
-                if (!await _roleMgr.RoleExistsAsync("Member"))
+                string roleName = "member";
+
+                if (!await _roleMgr.RoleExistsAsync(roleName))
                 {
-                    var role = new Role { Name = "Member" };
+                    var role = new Role { Name = roleName };
 
                     await _roleMgr.CreateAsync(role);
                 }
@@ -85,8 +89,8 @@
                 };
 
                 var userResult = await _userMgr.CreateAsync(user, "P@$$w0rd");
-                var roleResult = await _userMgr.AddToRoleAsync(user, "Member");
-                var claimResult = await _userMgr.AddClaimAsync(user, new Claim(ClaimTypes.Role, "Member"));
+                var roleResult = await _userMgr.AddToRoleAsync(user, roleName);
+                var claimResult = await _userMgr.AddClaimAsync(user, new Claim(ClaimTypes.Role, roleName));
 
                 if (!userResult.Succeeded || !roleResult.Succeeded || !claimResult.Succeeded)
                 {

@@ -1,4 +1,4 @@
-﻿namespace Identity.Application.Service
+﻿namespace Identity.Application.Service.Interfaces
 {
     using Dto.Input;
     using Dto.Output;

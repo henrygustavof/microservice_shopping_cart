@@ -16,6 +16,6 @@
 
         void Update(TEntity entity);
 
-        void Remove(TEntity entity);
+        void Delete(TEntity entity);
     }
 }
