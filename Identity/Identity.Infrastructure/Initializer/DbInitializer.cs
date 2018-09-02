@@ -10,12 +10,12 @@
     public class DbInitializer
     {
         private readonly RoleManager<Role> _roleMgr;
-        private readonly UserManager<User> _userMgr;
+        private readonly UserManager<User> _userInMgr;
 
         public DbInitializer(IdentityContext context, UserManager<User> userMgr,
                              RoleManager<Role> roleMgr)
         {
-            _userMgr = userMgr;
+            _userInMgr = userMgr;
             _roleMgr = roleMgr;
 
             context.Database.EnsureCreated();
@@ -31,12 +31,13 @@
 
         public async Task SeedAdmin()
         {
-            var user = await _userMgr.FindByNameAsync("admin");
+            var userName = "admin";
+            var user = await _userInMgr.FindByNameAsync(userName);
 
             // Add User
             if (user == null)
             {
-                string roleName = "admin";
+                string roleName = Roles.Admin;
 
                 if (!await _roleMgr.RoleExistsAsync(roleName))
                 {
@@ -46,15 +47,15 @@
 
                 user = new User
                 {
-                    UserName = "admin",
+                    UserName = userName,
                     Email = "admin@henrygustavo.com",
                     EmailConfirmed = true,
                     PhoneNumber = "530-685-2496"
                 };
 
-                var userResult = await _userMgr.CreateAsync(user, "P@$$w0rd");
-                var roleResult = await _userMgr.AddToRoleAsync(user, roleName);
-                var claimResult = await _userMgr.AddClaimAsync(user, new Claim(ClaimTypes.Role, roleName));
+                var userResult = await _userInMgr.CreateAsync(user, "P@$$w0rd");
+                var roleResult = await _userInMgr.AddToRoleAsync(user, roleName);
+                var claimResult = await _userInMgr.AddClaimAsync(user, new Claim(ClaimTypes.Role, roleName));
 
                 if (!userResult.Succeeded || !roleResult.Succeeded || !claimResult.Succeeded)
                 {
@@ -66,12 +67,13 @@
 
         public async Task SeedMember()
         {
-            var user = await _userMgr.FindByNameAsync("member");
+            var userName = "member";
+            var user = await _userInMgr.FindByNameAsync(userName);
 
             // Add User
             if (user == null)
             {
-                string roleName = "member";
+                string roleName = Roles.Member;
 
                 if (!await _roleMgr.RoleExistsAsync(roleName))
                 {
@@ -82,15 +84,15 @@
 
                 user = new User
                 {
-                    UserName = "member",
+                    UserName = userName,
                     Email = "member@test.com",
                     EmailConfirmed = true,
                     PhoneNumber = "530-685-2496"
                 };
 
-                var userResult = await _userMgr.CreateAsync(user, "P@$$w0rd");
-                var roleResult = await _userMgr.AddToRoleAsync(user, roleName);
-                var claimResult = await _userMgr.AddClaimAsync(user, new Claim(ClaimTypes.Role, roleName));
+                var userResult = await _userInMgr.CreateAsync(user, "P@$$w0rd");
+                var roleResult = await _userInMgr.AddToRoleAsync(user, roleName);
+                var claimResult = await _userInMgr.AddClaimAsync(user, new Claim(ClaimTypes.Role, roleName));
 
                 if (!userResult.Succeeded || !roleResult.Succeeded || !claimResult.Succeeded)
                 {

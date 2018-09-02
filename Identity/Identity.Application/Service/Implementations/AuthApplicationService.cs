@@ -44,17 +44,37 @@
 
         public async Task<JwTokenDto> PerformRegistration(RegisterDto model)
         {
-            Notification notification = await ValidateRegistration(model);
+            Notification notification = ValidateRegistration(model);
 
             if (notification.HasErrors())
             {
                 throw new ArgumentException(notification.ErrorMessage());
             }
 
+            var user = new User
+            {
+                UserName = model.UserName,
+                Email = model.Email
+            };
+
+            var userResult = await _userInMgr.CreateAsync(user, model.Password);
+
+            var roleResult = await _userInMgr.AddToRoleAsync(user, Roles.Member);
+            var claimResult = await _userInMgr.AddClaimAsync(user, new Claim(ClaimTypes.Role, Roles.Member));
+
+            if (!userResult.Succeeded || !roleResult.Succeeded || !claimResult.Succeeded)
+            { 
+                notification.AddError(string.Join(". ", from item in userResult.Errors select item.Description));
+
+                throw new ArgumentException(notification.ErrorMessage());
+            }
+
+            await _signInMgr.SignInAsync(user, false);
+
             return await GenerateToken(model.Email);
         }
 
-        private async Task<Notification> ValidateRegistration(RegisterDto model)
+        private Notification ValidateRegistration(RegisterDto model)
         {
             Notification notification = new Notification();
 
@@ -73,22 +93,6 @@
                 notification.AddError($"UserName must have at least {_config["Account:UserNameRequiredLength"]} characters.");
                 return notification;
             }
-
-            var user = new User
-            {
-                UserName = model.UserName,
-                Email = model.Email
-            };
-
-            var result = await _userInMgr.CreateAsync(user, model.Password);
-
-            if (!result.Succeeded)
-            {
-                notification.AddError(string.Join(". ", from item in result.Errors select item.Description));
-                return notification;
-            }
-
-            await _signInMgr.SignInAsync(user, false);
 
             return notification;
 

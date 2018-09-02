@@ -60,14 +60,15 @@
 
         public int Update(int id, Dto.Input.RoleDto entity)
         {
-            var newEntity = _unitOfWork.Roles.Get(id);
+            entity.Id = id;
+            var oldEntity = _unitOfWork.Roles.Get(id);
 
-            Mapper.Map(entity, newEntity);
+            Mapper.Map(entity, oldEntity);
 
-            _unitOfWork.Roles.Update(newEntity);
+            _unitOfWork.Roles.Update(oldEntity);
             _unitOfWork.Complete();
 
-            return newEntity?.Id ?? 0;
+            return oldEntity?.Id ?? 0;
         }
     }
 }

@@ -60,14 +60,15 @@
 
         public int Update(int id, Dto.Input.UserDto entity)
         {
-            var newEntity = _unitOfWork.Users.Get(id);
+            entity.Id = id;
+            var oldEntity = _unitOfWork.Users.Get(id);
 
-            Mapper.Map(entity, newEntity);
+            Mapper.Map(entity, oldEntity);
 
-            _unitOfWork.Users.Update(newEntity);
+            _unitOfWork.Users.Update(oldEntity);
             _unitOfWork.Complete();
 
-            return newEntity?.Id ?? 0;
+            return oldEntity?.Id ?? 0;
         }
     }
 }
