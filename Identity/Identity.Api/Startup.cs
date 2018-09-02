@@ -70,8 +70,8 @@
 
             services.AddAuthorization(cfg =>
             {
-                cfg.AddPolicy("Administrator", p => p.RequireClaim(ClaimTypes.Role, "admin"));
-                cfg.AddPolicy("Member", p => p.RequireClaim(ClaimTypes.Role, "member"));
+                cfg.AddPolicy("Administrator", p => p.RequireClaim(ClaimTypes.Role, Roles.Admin));
+                cfg.AddPolicy("Member", p => p.RequireClaim(ClaimTypes.Role, Roles.Member));
             });
 
             var tokenKey = Environment.GetEnvironmentVariable("TOKEN_KEY") ?? Configuration["Jwt:Key"];
