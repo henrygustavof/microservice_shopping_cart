@@ -1,0 +1,11 @@
+﻿---
+applications:
+- name: shoppingcart_gateway
+  random-route: true
+  memory: 512M
+
+  docker:
+    image: henrygustavo/shopping_cart_gateway
+  env:
+    ASPNETCORE_ENVIRONMENT: Production
+    TOKEN_KEY: SUPERPASSWORD123

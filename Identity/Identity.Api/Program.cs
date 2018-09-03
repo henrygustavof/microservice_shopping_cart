@@ -3,12 +3,16 @@
     using Microsoft.AspNetCore;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
+    using System;
 
     public class Program
     {
         public static void Main(string[] args)
         {
-            BuildWebHost(args).Run();
+           
+                BuildWebHost(args).Run();
+           
+           
         }
 
         public static IWebHost BuildWebHost(string[] args) =>

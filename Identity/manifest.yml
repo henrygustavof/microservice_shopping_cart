@@ -1,0 +1,11 @@
+﻿---
+applications:
+- name: shoppingcart_identity
+  random-route: true
+  memory: 512M
+
+  docker:
+    image: henrygustavo/shopping_cart_identity
+  env:
+    ASPNETCORE_ENVIRONMENT: Production
+    

@@ -6,9 +6,14 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{90606F70-6442-4A4A-BC20-66DD632A9067}"
 	ProjectSection(SolutionItems) = preProject
 		Identity\Dockerfile = Identity\Dockerfile
+		Identity\manifest.yml = Identity\manifest.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateway", "Gateway", "{BDEC1493-5CC4-4073-8AEA-3E24CED61A38}"
+	ProjectSection(SolutionItems) = preProject
+		Gateway\Dockerfile = Gateway\Dockerfile
+		Gateway\manifest.yml = Gateway\manifest.yml
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gateway.Api", "Gateway\Gateway.Api\Gateway.Api.csproj", "{AA46430C-8B2D-4441-91C0-45439C5389B7}"
 EndProject

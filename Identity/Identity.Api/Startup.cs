@@ -20,6 +20,7 @@
     using Microsoft.IdentityModel.Tokens;
     using Identity.Application.Service.Interfaces;
     using Identity.Application.Service.Implementations;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
 
     public class Startup
     {
@@ -76,10 +77,12 @@
 
             var tokenKey = Environment.GetEnvironmentVariable("TOKEN_KEY") ?? Configuration["Jwt:Key"];
 
-            services.AddAuthentication().AddJwtBearer(cfg =>
+            services.AddAuthentication(o =>
+            {
+                o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, cfg =>
             {
                 cfg.RequireHttpsMetadata = false;
-                cfg.SaveToken = true;
 
                 cfg.TokenValidationParameters = new TokenValidationParameters
                 {
