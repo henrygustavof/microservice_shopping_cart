@@ -8,7 +8,7 @@
 
     [Produces("application/json")]
     [Route("api/roles")]
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "Administrator")]
     public class RoleController : Controller
     {
 

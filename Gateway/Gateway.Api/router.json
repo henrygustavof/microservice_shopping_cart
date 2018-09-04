@@ -5,8 +5,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "shoppingcartidentity.cfapps.io",
-          "Port": 80
+          "Host": "localhost",
+          "Port": 5001
         }
       ],
       "UpstreamPathTemplate": "/{everything}",
