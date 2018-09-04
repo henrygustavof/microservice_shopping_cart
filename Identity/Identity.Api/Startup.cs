@@ -21,6 +21,9 @@
     using Identity.Application.Service.Interfaces;
     using Identity.Application.Service.Implementations;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
+    using Swashbuckle.AspNetCore.Swagger;
+    using System.Collections.Generic;
+    using Microsoft.AspNetCore.Mvc.Cors.Internal;
 
     public class Startup
     {
@@ -92,12 +95,13 @@
                 };
             });
 
+            var allowSpecificOriginUrl = Environment.GetEnvironmentVariable("ALLOW_SPECIFIC_ORIGIN_URL") ?? Configuration["AllowSpecificOriginUrl"];
             services.AddCors(options =>
             {
-                options.AddPolicy("AllowFromAll",
+                options.AddPolicy("AllowSpecificOrigin",
                     builder => builder
+                        .WithOrigins(allowSpecificOriginUrl)
                         .AllowAnyMethod()
-                        .AllowAnyOrigin()
                         .AllowCredentials()
                         .AllowAnyHeader());
             });
@@ -117,8 +121,29 @@
                     new ProducesResponseTypeAttribute(typeof(ErrorResponse), 415));
                 options.Filters.Add(
                     new ProducesResponseTypeAttribute(typeof(ErrorResponse), 500));
+
+                
+                    options.Filters.Add(new CorsAuthorizationFilterFactory("AllowSpecificOrigin"));
+                
             });
 
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "System API", Version = "v1" });
+                c.AddSecurityDefinition("Bearer", new ApiKeyScheme()
+                {
+                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+                    Name = "Authorization",
+                    In = "header",
+                    Type = "apiKey"
+                });
+                c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>>
+                {
+                    { "Bearer", new string[] { } }
+                });
+
+                c.CustomSchemaIds(x => x.FullName);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -133,11 +158,13 @@
             options.DefaultFileNames.Clear();
             options.DefaultFileNames.Add("index.html");
 
-            app.UseCors("AllowFromAll")//always berofe "UseMvc"
+             app.UseCors("AllowSpecificOrigin")//always berofe "UseMvc"
                 .UseMiddleware(typeof(ErrorMiddleware))
                 .UseMvc()
                 .UseDefaultFiles(options)
-                .UseStaticFiles();
+                .UseStaticFiles()
+                .UseSwagger()
+                .UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"); });
 
             if (env.IsDevelopment())
             {
