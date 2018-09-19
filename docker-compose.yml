@@ -5,6 +5,18 @@ networks:
 
 
 services:
+  cart:
+    image: henrygustavo/shopping_cart_cartbasket
+    build: 
+      context: ./cart
+      dockerfile: Dockerfile
+    environment: 
+      - ASPNETCORE_ENVIRONMENT=Production
+    container_name: cartapi
+    ports:
+      - "9002:80"
+    networks:
+      - backend
 
   identity:
     image: henrygustavo/shopping_cart_identity

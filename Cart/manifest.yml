@@ -1,0 +1,11 @@
+﻿---
+applications:
+- name: shoppingcart_cart_cartbasket
+  random-route: true
+  memory: 512M
+
+  docker:
+    image: henrygustavo/shopping_cart_cartbasket
+  env:
+    ASPNETCORE_ENVIRONMENT: Production
+    
