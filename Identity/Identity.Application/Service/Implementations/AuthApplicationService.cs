@@ -192,6 +192,7 @@
             var claims = new[]
             {
                         new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                        new Claim("userId", user.Id.ToString()),
                         new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
                         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                         new Claim(JwtRegisteredClaimNames.Email, user.Email),
