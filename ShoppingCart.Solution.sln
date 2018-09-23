@@ -36,13 +36,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cart", "Cart", "{294C4A4A-E
 		Cart\manifest.yml = Cart\manifest.yml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cart.Api", "Cart\Cart.Api\Cart.Api.csproj", "{1AAFB2B5-F2CF-4A43-8D16-6E6910553C99}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cart.Api", "Cart\Cart.Api\Cart.Api.csproj", "{1AAFB2B5-F2CF-4A43-8D16-6E6910553C99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cart.Domain", "Cart\Cart.Domain\Cart.Domain.csproj", "{B3ADE303-AE26-46D4-A591-C943A5256EAE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cart.Domain", "Cart\Cart.Domain\Cart.Domain.csproj", "{B3ADE303-AE26-46D4-A591-C943A5256EAE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cart.Infrastructure", "Cart\Cart.Infrastructure\Cart.Infrastructure.csproj", "{51E000EA-D266-4DE4-B816-359F522B843B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cart.Infrastructure", "Cart\Cart.Infrastructure\Cart.Infrastructure.csproj", "{51E000EA-D266-4DE4-B816-359F522B843B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cart.Application", "Cart\Cart.Application\Cart.Application.csproj", "{8B0F91F4-4388-4A51-975C-B2FFFEB3DF32}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cart.Application", "Cart\Cart.Application\Cart.Application.csproj", "{8B0F91F4-4388-4A51-975C-B2FFFEB3DF32}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Product", "Product", "{3628801B-6FEE-4903-9523-1EDB5A31F17F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
