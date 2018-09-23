@@ -2,9 +2,9 @@
 {
     using System.Threading.Tasks;
     using AutoMapper;
-    using Cart.Application.Dto;
-    using Cart.Domain.Repository;
-    using Cart.Domain.Entity;
+    using Dto;
+    using Domain.Repository;
+    using Domain.Entity;
 
     public class CartService : ICartService
     {

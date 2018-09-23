@@ -1,6 +1,6 @@
 ﻿namespace Cart.Application.Service
 {
-    using Cart.Application.Dto;
+    using Dto;
     using System.Threading.Tasks;
 
     public interface ICartService

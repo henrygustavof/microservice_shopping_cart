@@ -1,11 +1,11 @@
 ﻿namespace Cart.Api
 {
     using AutoMapper;
-    using Cart.Api.Middleware;
-    using Cart.Api.Response;
-    using Cart.Application.Service;
-    using Cart.Domain.Repository;
-    using Cart.Infrastructure.Repository;
+    using Middleware;
+    using Response;
+    using Application.Service;
+    using Domain.Repository;
+    using Infrastructure.Repository;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;

@@ -1,7 +1,7 @@
 ﻿namespace Cart.Infrastructure.Repository
 {
-    using Cart.Domain.Repository;
-    using Cart.Domain.Entity;
+    using Domain.Repository;
+    using Domain.Entity;
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Newtonsoft.Json;

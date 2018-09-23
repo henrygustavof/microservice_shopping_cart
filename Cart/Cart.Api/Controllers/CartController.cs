@@ -1,7 +1,7 @@
 ﻿namespace Cart.Api.Controllers
 {
-    using Cart.Application.Dto;
-    using Cart.Application.Service;
+    using Application.Dto;
+    using Application.Service;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
