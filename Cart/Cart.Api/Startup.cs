@@ -54,7 +54,7 @@
                 options.InstanceName = Environment.GetEnvironmentVariable("REDIS_CACHE_INSTANCE_NAME") ?? Configuration["RedisCacheInstanceName"];
             });
 
-            var tokenKey = Environment.GetEnvironmentVariable("TOKEN_KEY") ?? Configuration["Jwt:Key"];
+            var tokenKey = Environment.GetEnvironmentVariable("JWT_TOKEN_KEY") ?? Configuration["Jwt:Key"];
 
             services.AddAuthentication(o =>
             {

@@ -78,7 +78,7 @@
                 cfg.AddPolicy("Member", p => p.RequireClaim(ClaimTypes.Role, Roles.Member));
             });
 
-            var tokenKey = Environment.GetEnvironmentVariable("TOKEN_KEY") ?? Configuration["Jwt:Key"];
+            var tokenKey = Environment.GetEnvironmentVariable("JWT_TOKEN_KEY") ?? Configuration["Jwt:Key"];
 
             services.AddAuthentication(o =>
             {

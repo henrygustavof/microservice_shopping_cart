@@ -199,7 +199,7 @@
                         new Claim("role", role)
                     }.Union(userClaims);
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("TOKEN_KEY") ?? _config["Jwt:Key"]));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT_TOKEN_KEY") ?? _config["Jwt:Key"]));
 
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
