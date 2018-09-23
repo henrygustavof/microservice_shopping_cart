@@ -2,12 +2,15 @@
 {
     using Cart.Application.Dto;
     using Cart.Application.Service;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using System.Net;
     using System.Threading.Tasks;
 
     [Produces("application/json")]
     [Route("api/carts")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class CartController : Controller
     {
         private readonly ICartService _cartService;

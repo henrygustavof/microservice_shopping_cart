@@ -199,14 +199,14 @@
                         new Claim("role", role)
                     }.Union(userClaims);
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("TOKEN_KEY") ?? _config["Jwt:Key"]));
 
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
 
-                _config["Jwt:Issuer"],
-                _config["Jwt:Audience"],
+                Environment.GetEnvironmentVariable("JWT_ISSUER") ?? _config["Jwt:Issuer"],
+                Environment.GetEnvironmentVariable("JWT_AUDIENCE") ?? _config["Jwt:Audience"],
                 claims,
                 expires: DateTime.UtcNow.AddMinutes(Convert.ToInt32(_config["Account:ExpirationTimeTokenInMin"])),
                 signingCredentials: creds

@@ -1,6 +1,6 @@
 ﻿---
 applications:
-- name: shoppingcart_cart_cartbasket
+- name: shoppingcart_cartbasket
   random-route: true
   memory: 512M
 
