@@ -7,7 +7,7 @@ namespace Product.Api.Common.Infrastructure.Persistence.NHibernate
 
     public class UnitOfWorkNHibernate : IUnitOfWork
     {
-        private SessionFactory _sessionFactory;
+        private readonly SessionFactory _sessionFactory;
         private ISession _session;
         private ITransaction _transaction;
 
@@ -21,12 +21,12 @@ namespace Product.Api.Common.Infrastructure.Persistence.NHibernate
             return _session;
         }
 
-        public bool BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.ReadCommitted)
+        public bool BeginTransaction()
         {
             if (_transaction == null || !_transaction.IsActive)
             {
                 _session = _sessionFactory.OpenSession();
-                _transaction = _session.BeginTransaction(isolationLevel);
+                _transaction = _session.BeginTransaction(IsolationLevel.ReadCommitted);
                 return true;
             }
 

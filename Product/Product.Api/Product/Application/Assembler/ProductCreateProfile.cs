@@ -16,6 +16,15 @@ namespace Product.Api.Product.Application.Assembler
                     )
                 )
                .ReverseMap();
+
+            CreateMap<ProductOutputDto, Domain.Entity.Product>()
+                .ForMember(
+                    dest => dest.Balance,
+                    opts => opts.MapFrom(
+                        src => new Money(src.Balance, src.Currency)
+                    )
+                )
+                .ReverseMap();
         }
     }
 }

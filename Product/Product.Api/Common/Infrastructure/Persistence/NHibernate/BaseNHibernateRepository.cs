@@ -1,10 +1,17 @@
-﻿namespace Product.Api.Common.Infrastructure.Persistence.NHibernate
-{
-    public class BaseNHibernateRepository<T>
-    {
-        protected readonly UnitOfWorkNHibernate _unitOfWork;
+﻿using NHibernate;
+using Product.Api.Common.Application;
+using Product.Api.Product.Domain.Repository;
 
-        protected BaseNHibernateRepository(UnitOfWorkNHibernate unitOfWork)
+namespace Product.Api.Common.Infrastructure.Persistence.NHibernate
+{
+    using System.Collections.Generic;
+    using System.Linq;
+
+
+    public abstract class BaseNHibernateRepository<T> : IRepository<T> where T : class
+    {
+        protected readonly IUnitOfWork _unitOfWork;
+        protected BaseNHibernateRepository(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
@@ -14,11 +21,15 @@
             SaveOrUpdate(entity);
         }
 
-        public T Read(long id)
+        public IReadOnlyList<T> GetAll()
         {
-            bool status = _unitOfWork.BeginTransaction();
+            IReadOnlyList<T> entities = _unitOfWork.GetSession().Query<T>().ToList();
+            return entities;
+        }
+
+        public T Get(long id)
+        {
             T entity = _unitOfWork.GetSession().Get<T>(id);
-            _unitOfWork.Commit(status);
             return entity;
         }
 
@@ -29,16 +40,12 @@
 
         public void Delete(T entity)
         {
-            bool status = _unitOfWork.BeginTransaction();
             _unitOfWork.GetSession().Delete(entity);
-            _unitOfWork.Commit(status);
         }
 
         private void SaveOrUpdate(T entity)
         {
-            bool status = _unitOfWork.BeginTransaction();
             _unitOfWork.GetSession().SaveOrUpdate(entity);
-            _unitOfWork.Commit(status);
         }
     }
 }

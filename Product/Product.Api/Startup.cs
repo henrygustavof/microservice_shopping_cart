@@ -4,8 +4,10 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Product.Api.Common.Application;
 using Product.Api.Common.Infrastructure.Persistence.NHibernate;
 using Product.Api.Product.Application.Assembler;
+using Product.Api.Product.Application.Service;
 using Product.Api.Product.Domain.Repository;
 using Product.Api.Product.Infrastructure.Persistence.NHibernate.Repository;
 
@@ -29,8 +31,9 @@ namespace Product.Api
             var serviceProvider = services.BuildServiceProvider();
             var mapper = serviceProvider.GetService<IMapper>();
             services.AddSingleton(new ProductCreateAssembler(mapper));
-            services.AddScoped<UnitOfWorkNHibernate>();
+            services.AddScoped<IUnitOfWork, UnitOfWorkNHibernate>();
             services.AddTransient<IProductRepository, ProductNHibernateRepository>();
+            services.AddTransient<IProductApplicationService, ProductApplicationService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Product.Api.Product.Application.Assembler;
 using Product.Api.Product.Application.Dto;
-using Product.Api.Product.Domain.Repository;
+using Product.Api.Product.Application.Service;
 
 namespace Product.Api.Product.Controllers
 {
@@ -10,22 +9,23 @@ namespace Product.Api.Product.Controllers
     [Route("api/products")]
     public class ProductController : Controller
     {
+        private readonly IProductApplicationService _productApplicationService;
 
-        private readonly IProductRepository _productRepository;
-        private readonly ProductCreateAssembler _productCreateAssembler;
-
-        public ProductController(IProductRepository productRepository, ProductCreateAssembler productCreateAssembler)
+        public ProductController(IProductApplicationService productApplicationService)
         {
-            _productRepository = productRepository;
-            _productCreateAssembler = productCreateAssembler;
+            _productApplicationService = productApplicationService;
         }
 
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            return StatusCode(StatusCodes.Status201Created, _productApplicationService.GetAll());
+        }
 
         [HttpPost]
-        public IActionResult Create([FromBody] ProductCreateDto _productCreateDto)
+        public IActionResult Create([FromBody] ProductCreateDto productCreateDto)
         {
-            Domain.Entity.Product _product = _productCreateAssembler.toEntity(_productCreateDto);
-            _productRepository.Create(_product);
+            _productApplicationService.Create(productCreateDto);
             return StatusCode(StatusCodes.Status201Created, "Product Created!");
         }
     }

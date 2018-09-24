@@ -1,7 +1,7 @@
 ﻿namespace Product.Api.Product.Domain.Repository
 {
-    public interface IProductRepository
+    using Entity;
+    public interface IProductRepository : IRepository<Product>
     {
-        void Create(Entity.Product product);
     }
 }
