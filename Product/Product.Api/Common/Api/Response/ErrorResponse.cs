@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
-namespace Product.Api.Common.Api.Response
+﻿namespace Product.Api.Common.Api.Response
 {
+    using Newtonsoft.Json;
     public class ErrorResponse
     {
         public int StatusCode { get; }

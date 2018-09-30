@@ -1,4 +1,4 @@
-﻿using Product.Api.Common.Application.Enum;
+﻿using Product.Api.Common.Domain.Enum;
 
 namespace Product.Api.Common.Domain.ValueObject
 {

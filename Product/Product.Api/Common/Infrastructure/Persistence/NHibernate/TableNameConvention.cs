@@ -7,7 +7,7 @@ namespace Product.Api.Common.Infrastructure.Persistence.NHibernate
     {
         public void Apply(IClassInstance instance)
         {
-            instance.Table(Util.getTableName(instance.EntityType.Name));
+            instance.Table(Util.GetTableName(instance.EntityType.Name));
         }
     }
 }

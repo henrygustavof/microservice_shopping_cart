@@ -5,7 +5,7 @@
 
     public class Util
     {
-        public static string getTableName(string value)
+        public static string GetTableName(string value)
         {
             StringBuilder builder = new StringBuilder();
             foreach (char c in value)

@@ -1,12 +1,14 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using Product.Api.Common.Api.Response;
-using System;
-using System.Threading.Tasks;
+﻿using Product.Api.Common.Api.Response;
+
 namespace Product.Api.Common.Api.Middleware
 {
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.Extensions.Logging;
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Serialization;
+
+    using System;
+    using System.Threading.Tasks;
     public class ErrorMiddleware
     {
 

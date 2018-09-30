@@ -1,4 +1,4 @@
-﻿namespace Product.Api.Common.Application.Enum
+﻿namespace Product.Api.Common.Domain.Enum
 {
     public enum Currency
     {
