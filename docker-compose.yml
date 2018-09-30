@@ -5,6 +5,19 @@ networks:
 
 
 services:
+  product:
+    image: henrygustavo/shopping_cart_product
+    build: 
+      context: ./product
+      dockerfile: Dockerfile
+    environment: 
+      - ASPNETCORE_ENVIRONMENT=Production
+    container_name: productapi
+    ports:
+      - "9003:80"
+    networks:
+      - backend
+
   cart:
     image: henrygustavo/shopping_cart_cartbasket
     build: 
