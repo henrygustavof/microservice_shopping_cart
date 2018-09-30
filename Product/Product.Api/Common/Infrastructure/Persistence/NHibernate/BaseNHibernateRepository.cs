@@ -1,10 +1,8 @@
-﻿using Product.Api.Product.Domain.Repository;
-
+﻿using Product.Api.Common.Domain.Repository;
 namespace Product.Api.Common.Infrastructure.Persistence.NHibernate
 {
     using System.Collections.Generic;
     using System.Linq;
-
 
     public abstract class BaseNHibernateRepository<T> : IRepository<T> where T : class
     {

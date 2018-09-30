@@ -1,4 +1,4 @@
-﻿namespace Product.Api.Product.Domain.Repository
+﻿namespace Product.Api.Common.Domain.Repository
 {
     using System.Collections.Generic;
 

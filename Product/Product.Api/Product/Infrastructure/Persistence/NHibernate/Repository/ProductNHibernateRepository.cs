@@ -1,5 +1,4 @@
-﻿using Product.Api.Common.Infrastructure.Persistence;
-using Product.Api.Common.Infrastructure.Persistence.NHibernate;
+﻿using Product.Api.Common.Infrastructure.Persistence.NHibernate;
 using Product.Api.Product.Domain.Repository;
 
 namespace Product.Api.Product.Infrastructure.Persistence.NHibernate.Repository
