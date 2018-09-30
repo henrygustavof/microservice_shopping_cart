@@ -1,9 +1,11 @@
-﻿namespace Product.Api.Common.Infrastructure.Persistence
+﻿using System.Data;
+
+namespace Product.Api.Common.Infrastructure.Persistence
 {
  
     public interface IUnitOfWork
     {
-        bool BeginTransaction();
+        bool BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.ReadCommitted);
         void Commit(bool commit);
         void Rollback(bool rollback);
     }

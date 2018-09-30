@@ -34,9 +34,15 @@ namespace Product.Api
             var mapper = serviceProvider.GetService<IMapper>();
 
             services.AddSingleton(new ProductCreateAssembler(mapper));
+
             services.AddScoped<IUnitOfWork, UnitOfWorkNHibernate>();
 
-            services.AddTransient<IProductRepository, ProductNHibernateRepository>();
+            services.AddTransient<IProductRepository, ProductNHibernateRepository>((ctx) =>
+            {
+                IUnitOfWork unitOfWork = ctx.GetService<IUnitOfWork>();
+                return new ProductNHibernateRepository((UnitOfWorkNHibernate)unitOfWork);
+            });
+
             services.AddTransient<IProductApplicationService, ProductApplicationService>();
 
             services.AddSwaggerGen(c =>

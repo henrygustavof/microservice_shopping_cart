@@ -9,9 +9,9 @@ namespace Product.Api.Common.Infrastructure.Persistence.NHibernate
     public abstract class BaseNHibernateRepository<T> : IRepository<T> where T : class
     {
         protected readonly UnitOfWorkNHibernate _unitOfWork;
-        protected BaseNHibernateRepository(IUnitOfWork unitOfWork)
+        protected BaseNHibernateRepository(UnitOfWorkNHibernate unitOfWork)
         {
-            _unitOfWork = (UnitOfWorkNHibernate)unitOfWork;
+            _unitOfWork = unitOfWork;
         }
 
         public void Create(T entity)

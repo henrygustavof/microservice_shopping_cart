@@ -20,12 +20,12 @@ namespace Product.Api.Common.Infrastructure.Persistence.NHibernate
             return _session;
         }
 
-        public bool BeginTransaction()
+        public bool BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.ReadCommitted)
         {
             if (_transaction == null || !_transaction.IsActive)
             {
                 _session = _sessionFactory.OpenSession();
-                _transaction = _session.BeginTransaction(IsolationLevel.ReadCommitted);
+                _transaction = _session.BeginTransaction();
                 return true;
             }
 
