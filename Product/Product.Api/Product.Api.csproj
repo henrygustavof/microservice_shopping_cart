@@ -5,11 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Migrations\MySQL\1_ProductTable.sql" />
+    <Compile Remove="Common\Controllers\**" />
+    <Content Remove="Common\Controllers\**" />
+    <EmbeddedResource Remove="Common\Controllers\**" />
+    <None Remove="Common\Controllers\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Common\Controllers\" />
+    <None Remove="Migrations\MySQL\1_ProductTable.sql" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,6 +26,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.4" />
     <PackageReference Include="MySql.Data" Version="8.0.12" />
     <PackageReference Include="NHibernate" Version="5.1.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="3.0.0" />
   </ItemGroup>
 
   <ItemGroup>

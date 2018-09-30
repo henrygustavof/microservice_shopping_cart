@@ -29,7 +29,7 @@ namespace Product.Api
                 .AddFluentMigratorCore()
                 .ConfigureRunner(rb => rb
                     .AddMySql5()
-                    .WithGlobalConnectionString(Environment.GetEnvironmentVariable("MYSQL_CONECTION_STRING"))
+                    .WithGlobalConnectionString(Environment.GetEnvironmentVariable("MYSQL_CONECTION_STRING_LOCAL"))
                     .ScanIn(typeof(ProductTable).Assembly)
                     .For.All()
                 )

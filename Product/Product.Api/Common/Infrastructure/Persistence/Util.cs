@@ -1,11 +1,11 @@
-﻿namespace Product.Api.Common
+﻿namespace Product.Api.Common.Infrastructure.Persistence
 {
     using System;
     using System.Text;
 
     public class Util
     {
-        public static String getTableName(String value)
+        public static string getTableName(string value)
         {
             StringBuilder builder = new StringBuilder();
             foreach (char c in value)

@@ -1,13 +1,9 @@
-﻿using NHibernate;
-
-namespace Product.Api.Common.Application
+﻿namespace Product.Api.Common.Infrastructure.Persistence
 {
-    using System.Data;
-
+ 
     public interface IUnitOfWork
     {
         bool BeginTransaction();
-        ISession GetSession();
         void Commit(bool commit);
         void Rollback(bool rollback);
     }

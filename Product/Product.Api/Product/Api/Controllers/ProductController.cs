@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Product.Api.Product.Application.Dto;
 using Product.Api.Product.Application.Service;
+using System.Collections.Generic;
+using System.Net;
 
-namespace Product.Api.Product.Controllers
+namespace Product.Api.Product.Api.Controllers
 {
     [Produces("application/json")]
     [Route("api/products")]
@@ -16,17 +17,26 @@ namespace Product.Api.Product.Controllers
             _productApplicationService = productApplicationService;
         }
 
+        [HttpGet("{id}")]
+        [ProducesResponseType(typeof(ProductOutputDto), (int)HttpStatusCode.OK)]
+        public IActionResult Get(int id)
+        {
+            return Ok(_productApplicationService.Get(id));
+        }
+
         [HttpGet]
+        [ProducesResponseType(typeof(List<ProductOutputDto>), (int)HttpStatusCode.OK)]
         public IActionResult GetAll()
         {
-            return StatusCode(StatusCodes.Status201Created, _productApplicationService.GetAll());
+            return  Ok(_productApplicationService.GetAll());
         }
 
         [HttpPost]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
         public IActionResult Create([FromBody] ProductCreateDto productCreateDto)
         {
             _productApplicationService.Create(productCreateDto);
-            return StatusCode(StatusCodes.Status201Created, "Product Created!");
+            return Ok("Product Created!");
         }
     }
 }

@@ -3,7 +3,6 @@
 namespace Product.Api.Common.Infrastructure.Persistence.NHibernate
 {
     using System.Data;
-    using Application;
 
     public class UnitOfWorkNHibernate : IUnitOfWork
     {
