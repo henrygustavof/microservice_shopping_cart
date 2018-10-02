@@ -55,7 +55,7 @@
                 _productRepository.Create(product);
                 _unitOfWork.Commit(status);
             }
-            catch
+            catch ( Exception ex)
             {
                 _unitOfWork.Rollback(status);
 
