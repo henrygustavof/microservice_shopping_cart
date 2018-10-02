@@ -12,6 +12,7 @@ CREATE TABLE product (
   description longtext NOT NULL,
   price decimal(10,2) NOT NULL,
   currency varchar(3) NOT NULL,
+  unit int(11)  NOT NULL,
   category_id int(11) DEFAULT NULL,
   PRIMARY KEY(product_id),
   CONSTRAINT product_category_id FOREIGN KEY (category_id) REFERENCES category (category_id)

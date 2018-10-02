@@ -12,6 +12,7 @@
         
         public virtual Money Balance { get; set; }
 
+        public virtual int Unit { get; set; }
         public virtual Category Category { get; set; }
         public Product()
         {

@@ -9,6 +9,7 @@
         public  string Description { get; set; }
         public decimal Balance { get; set; }
 
+        public int Unit { get; set; }
         public int CategoryId { get; set; }
         public Currency Currency { get; set; }
     }
