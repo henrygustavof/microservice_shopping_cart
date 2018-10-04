@@ -22,7 +22,7 @@
 
             CreateMap<Product, ProductOutputDto>()
                 .ForMember(
-                    dest => dest.Balance,
+                    dest => dest.Price,
                     opts => opts.MapFrom(
                         src => src.Balance.Amount
                     )
