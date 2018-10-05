@@ -2,12 +2,13 @@
 {
     public class CartItemDto
     {
-        public string Id { get; set; }
         public string ProductId { get; set; }
         public string ProductName { get; set; }
         public decimal UnitPrice { get; set; }
-        public decimal OldUnitPrice { get; set; }
+        public string Currency { get; set; }
         public int Quantity { get; set; }
         public string PictureUrl { get; set; }
+        public string Total { get; set; }
+
     }
 }

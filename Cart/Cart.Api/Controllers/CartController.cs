@@ -1,12 +1,13 @@
 ﻿namespace Cart.Api.Controllers
 {
-    using Cart.Application.Dto;
-    using Cart.Application.Service;
+    using Application.Dto;
+    using Application.Service;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using System.Net;
     using System.Threading.Tasks;
+    using System.Security.Claims;
 
     [Produces("application/json")]
     [Route("api/carts")]
@@ -20,32 +21,32 @@
 
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
         [ProducesResponseType(typeof(CartDto), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Get(string id)
+        public async Task<IActionResult> Get()
         {
-            var basket = await _cartService.GetCartAsync(id);
+            var buyerId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
+            var basket = await _cartService.GetCartAsync(buyerId);
+                        
             return Ok(basket);
         }
 
-        // POST api/values
         [HttpPost]
 
         [ProducesResponseType(typeof(CartDto), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Post([FromBody]CartDto value)
         {
+            var buyerId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var basket = await _cartService.UpdateCartAsync(value);
 
             return Ok(basket);
         }
 
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(string id)
+        [HttpDelete]
+        public void Delete()
         {
-            _cartService.DeleteCartAsync(id);
+            var buyerId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            _cartService.DeleteCartAsync(buyerId);
 
         }
     }

@@ -2,9 +2,10 @@
 {
     using System.Threading.Tasks;
     using AutoMapper;
-    using Cart.Application.Dto;
-    using Cart.Domain.Repository;
-    using Cart.Domain.Entity;
+    using Dto;
+    using Domain.Repository;
+    using Domain.Entity;
+    using System.Collections.Generic;
 
     public class CartService : ICartService
     {
@@ -15,14 +16,17 @@
             _cartRepository = cartRepository;
         }
 
-        public async Task<bool> DeleteCartAsync(string id)
+        public async Task<bool> DeleteCartAsync(string buyerId)
         {
-            return await _cartRepository.DeleteCartAsync(id);
+            return await _cartRepository.DeleteCartAsync(buyerId);
         }
 
-        public async Task<CartDto> GetCartAsync(string cartId)
+        public async Task<CartDto> GetCartAsync(string buyerId)
         {
-            return Mapper.Map<CartDto>(await _cartRepository.GetCartAsync(cartId));
+            var cart = await _cartRepository.GetCartAsync(buyerId) ??
+                       new Cart { BuyerId = buyerId, Items = new List<CartItem>() };
+
+            return Mapper.Map<CartDto>(cart);
         }
 
         public async Task<CartDto> UpdateCartAsync(CartDto basket)

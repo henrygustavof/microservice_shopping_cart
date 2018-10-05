@@ -1,12 +1,12 @@
 ﻿namespace Cart.Application.Service
 {
-    using Cart.Application.Dto;
+    using Dto;
     using System.Threading.Tasks;
 
     public interface ICartService
     {
-        Task<CartDto> GetCartAsync(string cartId);
+        Task<CartDto> GetCartAsync(string buyerId);
         Task<CartDto> UpdateCartAsync(CartDto basket);
-        Task<bool> DeleteCartAsync(string id);
+        Task<bool> DeleteCartAsync(string buyerId);
     }
 }

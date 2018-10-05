@@ -16,7 +16,7 @@
         "EnableRateLimiting": true,
         "Period": "1s",
         "PeriodTimespan": 1,
-        "Limit": 1
+        "Limit": 2
       }
     },
     {
@@ -35,7 +35,7 @@
         "EnableRateLimiting": true,
         "Period": "1s",
         "PeriodTimespan": 1,
-        "Limit": 1
+      "Limit": 2
       }
     },
     {
@@ -58,7 +58,7 @@
         "EnableRateLimiting": true,
         "Period": "1s",
         "PeriodTimespan": 1,
-        "Limit": 1
+      "Limit": 2
       }
     },
     {
@@ -81,7 +81,7 @@
         "EnableRateLimiting": true,
         "Period": "1s",
         "PeriodTimespan": 1,
-        "Limit": 1
+      "Limit": 2
       }
     },
     {
@@ -104,7 +104,7 @@
         "EnableRateLimiting": true,
         "Period": "1s",
         "PeriodTimespan": 1,
-        "Limit": 1
+      "Limit": 2
       }
     },
     {
@@ -127,7 +127,7 @@
         "EnableRateLimiting": true,
         "Period": "1s",
         "PeriodTimespan": 1,
-        "Limit": 1
+      "Limit": 2
       }
     },
     {
@@ -150,7 +150,7 @@
         "EnableRateLimiting": true,
         "Period": "1s",
         "PeriodTimespan": 1,
-        "Limit": 1
+      "Limit": 2
       }
     },
     {
@@ -173,7 +173,7 @@
         "EnableRateLimiting": true,
         "Period": "1s",
         "PeriodTimespan": 1,
-        "Limit": 1
+      "Limit": 2
       }
     },
     {
@@ -193,7 +193,7 @@
         "EnableRateLimiting": true,
         "Period": "1s",
         "PeriodTimespan": 1,
-        "Limit": 1
+      "Limit": 2
       }
     }
 
