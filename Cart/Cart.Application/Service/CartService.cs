@@ -34,5 +34,15 @@
             cart.AddItem(Mapper.Map<CartItem>(product));
             return Mapper.Map<CartOutputDto>(await _cartRepository.UpdateCartAsync(cart));
         }
+
+        public async Task<List<CartItemOutputDto>> DeleteCartProductAsync(int productId, string buyerId)
+        {
+            var cart = await _cartRepository.GetCartAsync(buyerId);
+
+            cart.RemoveItem(productId);
+            await _cartRepository.UpdateCartAsync(cart);
+
+            return Mapper.Map <List<CartItemOutputDto>>(cart.Items);
+        }
     }
 }

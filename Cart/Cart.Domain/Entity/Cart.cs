@@ -39,5 +39,13 @@
                 this.Items.Add(cartItem);
             }
         }
+
+        public void RemoveItem(int productId)
+        {
+            if (this.Items.Any())
+            {
+                  this.Items.Remove(this.Items.FirstOrDefault(p => p.ProductId == productId));
+            }
+        }
     }
 }

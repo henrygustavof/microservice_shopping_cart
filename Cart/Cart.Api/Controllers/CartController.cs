@@ -8,6 +8,7 @@
     using System.Net;
     using System.Threading.Tasks;
     using System.Security.Claims;
+    using System.Collections.Generic;
 
     [Produces("application/json")]
     [Route("api/carts")]
@@ -43,10 +44,21 @@
         }
 
         [HttpDelete]
-        public void Delete()
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> Delete()
         {
             var buyerId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            _cartService.DeleteCartAsync(buyerId);
+            await _cartService.DeleteCartAsync(buyerId);
+
+            return Ok("cart was deleted");
+        }
+
+        [HttpDelete("product/{productId}")]
+        [ProducesResponseType(typeof(List<CartItemOutputDto>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> DeleteProduct(int productId)
+        {
+            var buyerId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            return Ok( await _cartService.DeleteCartProductAsync(productId, buyerId));
 
         }
     }
