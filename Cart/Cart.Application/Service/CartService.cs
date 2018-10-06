@@ -21,19 +21,18 @@
             return await _cartRepository.DeleteCartAsync(buyerId);
         }
 
-        public async Task<CartDto> GetCartAsync(string buyerId)
+        public async Task<CartOutputDto> GetCartAsync(string buyerId)
         {
-            var cart = await _cartRepository.GetCartAsync(buyerId) ??
-                       new Cart { BuyerId = buyerId, Items = new List<CartItem>() };
-
-            return Mapper.Map<CartDto>(cart);
+            var cart = await _cartRepository.GetCartAsync(buyerId);
+            return Mapper.Map<CartOutputDto>(cart);
         }
 
-        public async Task<CartDto> UpdateCartAsync(string buyerId, CartDto basket)
+        public async Task<CartOutputDto> UpdateCartAsync(string buyerId, CartItemCreateDto product)
         {
-            var myBasket = Mapper.Map<Cart>(basket);
-            myBasket.BuyerId = buyerId;
-            return Mapper.Map<CartDto>(await _cartRepository.UpdateCartAsync(myBasket));
+            var cart = await _cartRepository.GetCartAsync(buyerId);
+
+            cart.AddItem(Mapper.Map<CartItem>(product));
+            return Mapper.Map<CartOutputDto>(await _cartRepository.UpdateCartAsync(cart));
         }
     }
 }

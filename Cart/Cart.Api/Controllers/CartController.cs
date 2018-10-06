@@ -22,7 +22,7 @@
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(CartDto), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(CartOutputDto), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Get()
         {
             var buyerId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
@@ -32,11 +32,12 @@
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(CartDto), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Post([FromBody]CartDto value)
+        [ProducesResponseType(typeof(CartOutputDto), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> Post([FromBody]CartItemCreateDto product)
         {
             var buyerId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var basket = await _cartService.UpdateCartAsync(buyerId, value);
+
+            var basket = await _cartService.UpdateCartAsync(buyerId, product);
 
             return Ok(basket);
         }

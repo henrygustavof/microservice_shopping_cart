@@ -35,12 +35,13 @@
             return data?.Select(k => k.ToString());
         }
 
-        public async Task<Cart> GetCartAsync(string customerId)
+        public async Task<Cart> GetCartAsync(string buyerId)
         {
-            var data = await _database.StringGetAsync(customerId);
+            var data = await _database.StringGetAsync(buyerId);
+
             if (data.IsNullOrEmpty)
             {
-                return null;
+                return new Cart { BuyerId = buyerId, Items = new List<CartItem>() };
             }
 
             return JsonConvert.DeserializeObject<Cart>(data);
