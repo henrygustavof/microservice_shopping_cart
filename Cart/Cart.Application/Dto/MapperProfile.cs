@@ -12,14 +12,14 @@
                 .ForMember(
                 dest => dest.Total,
                 opts => opts.MapFrom(
-                    src => src.Items.Any() ? src.Items.Sum(item => item.UnitPrice * item.Quantity) : 0)
+                    src => src.Items.Any() ? src.Items.Sum(item => item.UnitPrice * item.Unit) : 0)
             );
 
             CreateMap<CartItem, CartItemOutputDto>()
                 .ForMember(
                     dest => dest.Total,
                     opts => opts.MapFrom(
-                        src => src.Quantity * src.UnitPrice)
+                        src => src.Unit * src.UnitPrice)
                 );
 
             CreateMap<CartItemCreateDto, CartItem>();

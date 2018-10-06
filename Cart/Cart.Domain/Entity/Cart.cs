@@ -27,7 +27,7 @@
 
                 if (firstOrDefault != null)
                 {
-                    firstOrDefault.Quantity = firstOrDefault.Quantity + cartItem.Quantity;
+                    firstOrDefault.Unit = firstOrDefault.Unit + cartItem.Unit;
                 }
                 else
                 {
