@@ -29,9 +29,11 @@
             return Mapper.Map<CartDto>(cart);
         }
 
-        public async Task<CartDto> UpdateCartAsync(CartDto basket)
+        public async Task<CartDto> UpdateCartAsync(string buyerId, CartDto basket)
         {
-            return Mapper.Map<CartDto>(await _cartRepository.UpdateCartAsync(Mapper.Map<Cart>(basket)));
+            var myBasket = Mapper.Map<Cart>(basket);
+            myBasket.BuyerId = buyerId;
+            return Mapper.Map<CartDto>(await _cartRepository.UpdateCartAsync(myBasket));
         }
     }
 }

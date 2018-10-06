@@ -6,7 +6,7 @@
     public interface ICartService
     {
         Task<CartDto> GetCartAsync(string buyerId);
-        Task<CartDto> UpdateCartAsync(CartDto basket);
+        Task<CartDto> UpdateCartAsync(string buyerId, CartDto basket);
         Task<bool> DeleteCartAsync(string buyerId);
     }
 }
