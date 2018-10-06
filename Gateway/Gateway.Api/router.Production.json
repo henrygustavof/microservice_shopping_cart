@@ -48,7 +48,7 @@
         }
       ],
       "UpstreamPathTemplate": "/carts",
-      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "UpstreamHttpMethod": [ "Get", "Post","Delete" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
