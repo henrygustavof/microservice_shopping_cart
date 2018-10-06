@@ -1,25 +1,20 @@
-﻿namespace Cart.Api
+﻿namespace Order.Api
 {
-    using AutoMapper;
-    using Middleware;
-    using Response;
-    using Application.Service;
-    using Domain.Repository;
-    using Infrastructure.Repository;
-    using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.Cors.Internal;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Options;
-    using Microsoft.IdentityModel.Tokens;
-    using StackExchange.Redis;
     using Swashbuckle.AspNetCore.Swagger;
     using System;
     using System.Collections.Generic;
     using System.Text;
+    using AutoMapper;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Cors.Internal;
+    using Microsoft.IdentityModel.Tokens;
+    using Middleware;
+    using Response;
 
     public class Startup
     {
@@ -33,27 +28,6 @@
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<ICartService, CartService>();
-
-            services.AddScoped<ICartRepository, RedisCartRepository>();
-
-            services.Configure<CartSettings>(Configuration);
-
-            services.AddSingleton<ConnectionMultiplexer>(sp =>
-            {
-                var settings = sp.GetRequiredService<IOptions<CartSettings>>().Value;
-                var configuration = ConfigurationOptions.Parse(
-                                    Environment.GetEnvironmentVariable("REDIS_CACHE_CONNECTION_STRING") 
-                                    ?? settings.ConnectionString, true);
-    
-                return ConnectionMultiplexer.Connect(configuration);
-            });
-
-            services.AddDistributedRedisCache(options => {
-                options.Configuration = Environment.GetEnvironmentVariable("REDIS_CACHE_CONNECTION_STRING") ?? Configuration.GetConnectionString("RedisConnection");
-                options.InstanceName = Environment.GetEnvironmentVariable("REDIS_CACHE_INSTANCE_NAME") ?? Configuration["RedisCacheInstanceName"];
-            });
-
             var tokenKey = Environment.GetEnvironmentVariable("JWT_TOKEN_KEY") ?? Configuration["Jwt:Key"];
 
             services.AddAuthentication(o =>
@@ -136,12 +110,12 @@
             options.DefaultFileNames.Add("index.html");
 
             app.UseCors("AllowSpecificOrigin")//always berofe "UseMvc"
-               .UseMiddleware(typeof(ErrorMiddleware))
-               .UseMvc()
-               .UseDefaultFiles(options)
-               .UseStaticFiles()
-               .UseSwagger()
-               .UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"); });
+                .UseMiddleware(typeof(ErrorMiddleware))
+                .UseMvc()
+                .UseDefaultFiles(options)
+                .UseStaticFiles()
+                .UseSwagger()
+                .UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"); });
         }
     }
 }

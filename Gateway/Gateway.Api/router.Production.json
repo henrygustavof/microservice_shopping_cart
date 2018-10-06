@@ -1,6 +1,52 @@
 {
   "ReRoutes": [
     {
+      "DownstreamPathTemplate": "/api/orders",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "shoppingcartcartbasket-order.cfapps.io",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/orders",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 2
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/orders/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "shoppingcartcartbasket-product.cfapps.io",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/orders/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 2
+      }
+    },
+    {
       "DownstreamPathTemplate": "/api/products",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -35,7 +81,7 @@
         "EnableRateLimiting": true,
         "Period": "1s",
         "PeriodTimespan": 1,
-      "Limit": 2
+        "Limit": 2
       }
     },
     {
@@ -48,7 +94,7 @@
         }
       ],
       "UpstreamPathTemplate": "/carts",
-      "UpstreamHttpMethod": [ "Get", "Post","Delete" ],
+      "UpstreamHttpMethod": [ "Get", "Post", "Delete" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
@@ -58,7 +104,7 @@
         "EnableRateLimiting": true,
         "Period": "1s",
         "PeriodTimespan": 1,
-      "Limit": 2
+        "Limit": 2
       }
     },
     {
@@ -81,7 +127,7 @@
         "EnableRateLimiting": true,
         "Period": "1s",
         "PeriodTimespan": 1,
-      "Limit": 2
+        "Limit": 2
       }
     },
     {
@@ -104,7 +150,7 @@
         "EnableRateLimiting": true,
         "Period": "1s",
         "PeriodTimespan": 1,
-      "Limit": 2
+        "Limit": 2
       }
     },
     {
@@ -127,7 +173,7 @@
         "EnableRateLimiting": true,
         "Period": "1s",
         "PeriodTimespan": 1,
-      "Limit": 2
+        "Limit": 2
       }
     },
     {
@@ -150,7 +196,7 @@
         "EnableRateLimiting": true,
         "Period": "1s",
         "PeriodTimespan": 1,
-      "Limit": 2
+        "Limit": 2
       }
     },
     {
@@ -173,7 +219,7 @@
         "EnableRateLimiting": true,
         "Period": "1s",
         "PeriodTimespan": 1,
-      "Limit": 2
+        "Limit": 2
       }
     },
     {
@@ -193,7 +239,7 @@
         "EnableRateLimiting": true,
         "Period": "1s",
         "PeriodTimespan": 1,
-      "Limit": 2
+        "Limit": 2
       }
     }
 

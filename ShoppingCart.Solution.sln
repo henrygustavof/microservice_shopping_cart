@@ -46,17 +46,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cart.Application", "Cart\Ca
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Product", "Product", "{3628801B-6FEE-4903-9523-1EDB5A31F17F}"
 	ProjectSection(SolutionItems) = preProject
-		Cart\Dockerfile = Cart\Dockerfile
-		Cart\manifest.yml = Cart\manifest.yml
+		Product\Dockerfile = Product\Dockerfile
+		Product\manifest.yml = Product\manifest.yml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Product.Api", "Product\Product.Api\Product.Api.csproj", "{AE1CB869-EECA-4EFC-9CD3-9984DD206A22}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Product.Api", "Product\Product.Api\Product.Api.csproj", "{AE1CB869-EECA-4EFC-9CD3-9984DD206A22}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Product.Domain", "Product\Product.Domain\Product.Domain.csproj", "{9D8A5FBF-A796-4371-92CC-FB3848B3EDB4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Product.Domain", "Product\Product.Domain\Product.Domain.csproj", "{9D8A5FBF-A796-4371-92CC-FB3848B3EDB4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Product.Application", "Product\Product.Application\Product.Application.csproj", "{6A1D1B1C-3758-476E-8866-9F557A33EF8E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Product.Application", "Product\Product.Application\Product.Application.csproj", "{6A1D1B1C-3758-476E-8866-9F557A33EF8E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Product.Infrastructure", "Product\Product.Infrastructure\Product.Infrastructure.csproj", "{58C48D93-2714-4287-A9DA-62F48CDE856C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Product.Infrastructure", "Product\Product.Infrastructure\Product.Infrastructure.csproj", "{58C48D93-2714-4287-A9DA-62F48CDE856C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Order", "Order", "{8C8274B7-0B87-4815-8C4C-38309C578239}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Order.Api", "Order\Order.Api\Order.Api.csproj", "{84A20C10-BFE7-4732-BDB0-C36B9630F80B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -116,6 +120,10 @@ Global
 		{58C48D93-2714-4287-A9DA-62F48CDE856C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58C48D93-2714-4287-A9DA-62F48CDE856C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58C48D93-2714-4287-A9DA-62F48CDE856C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84A20C10-BFE7-4732-BDB0-C36B9630F80B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84A20C10-BFE7-4732-BDB0-C36B9630F80B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84A20C10-BFE7-4732-BDB0-C36B9630F80B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84A20C10-BFE7-4732-BDB0-C36B9630F80B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -134,6 +142,7 @@ Global
 		{9D8A5FBF-A796-4371-92CC-FB3848B3EDB4} = {3628801B-6FEE-4903-9523-1EDB5A31F17F}
 		{6A1D1B1C-3758-476E-8866-9F557A33EF8E} = {3628801B-6FEE-4903-9523-1EDB5A31F17F}
 		{58C48D93-2714-4287-A9DA-62F48CDE856C} = {3628801B-6FEE-4903-9523-1EDB5A31F17F}
+		{84A20C10-BFE7-4732-BDB0-C36B9630F80B} = {8C8274B7-0B87-4815-8C4C-38309C578239}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {75CF0A98-6B92-4C21-9BC7-A187F5D10AA7}

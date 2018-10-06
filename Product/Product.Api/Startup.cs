@@ -5,15 +5,15 @@
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    using Product.Api.Middleware;
-    using Product.Infrastructure.Persistence;
-    using Product.Infrastructure.Persistence.NHibernate;
+    using Middleware;
+    using Infrastructure.Persistence;
+    using Infrastructure.Persistence.NHibernate;
     using Swashbuckle.AspNetCore.Swagger;
     using System;
-    using Product.Domain.Repository;
-    using Product.Infrastructure.Persistence.NHibernate.Repository;
-    using Product.Application.Service;
-    using Product.Application.Assembler;
+    using Domain.Repository;
+    using Infrastructure.Persistence.NHibernate.Repository;
+    using Application.Service;
+    using Application.Assembler;
 
     public class Startup
     {
