@@ -25,7 +25,7 @@
                     Address = "Lima 123",
                     FullName = " Juan Perez",
                     OrderDate = "10/10/2018",
-                    Total = 100,
+                    Total =3100,
                     Currency = "USD"
                 },
                 new OrderHeaderOutput
@@ -53,7 +53,7 @@
                 Address = "Lima 123",
                 FullName = " Juan Perez",
                 OrderDate = "10/10/2018",
-                Total = 100,
+                Total = 300,
                 Currency = "USD",
                 OrderItems = new List<OrderItemOutputDto>
                 {
@@ -64,7 +64,7 @@
                         ProductName = "adidas black t-shirt",
                         Total = 10,
                         Unit = 1,
-                        UnitPrice = 10
+                        UnitPrice = 100
                     },
                     new OrderItemOutputDto
                     {
@@ -73,7 +73,7 @@
                         ProductName = "adidas white t-shirt",
                         Total = 20,
                         Unit = 2,
-                        UnitPrice = 10
+                        UnitPrice = 100
                     }
                 }
             };
