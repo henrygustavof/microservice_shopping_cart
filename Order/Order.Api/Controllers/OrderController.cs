@@ -25,7 +25,7 @@
                     Address = "Lima 123",
                     FullName = " Juan Perez",
                     OrderDate = "10/10/2018",
-                    Total =3100,
+                    Total =300,
                     Currency = "USD"
                 },
                 new OrderHeaderOutput
@@ -62,7 +62,7 @@
                         Currency = "USD",
                         PictureUrl = "https://hfuentesstorage.blob.core.windows.net/images/adidas_black_tshirt.jpg",
                         ProductName = "adidas black t-shirt",
-                        Total = 10,
+                        Total = 100,
                         Unit = 1,
                         UnitPrice = 100
                     },
@@ -71,7 +71,7 @@
                         Currency = "USD",
                         PictureUrl = "https://hfuentesstorage.blob.core.windows.net/images/adidas_white_tshirt.jpg",
                         ProductName = "adidas white t-shirt",
-                        Total = 20,
+                        Total = 200,
                         Unit = 2,
                         UnitPrice = 100
                     }
