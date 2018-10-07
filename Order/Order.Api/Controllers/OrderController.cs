@@ -59,6 +59,7 @@
                 {
                     new OrderItemOutputDto
                     {
+                        ProductId = 1,
                         Currency = "USD",
                         PictureUrl = "https://hfuentesstorage.blob.core.windows.net/images/adidas_black_tshirt.jpg",
                         ProductName = "adidas black t-shirt",
@@ -68,6 +69,7 @@
                     },
                     new OrderItemOutputDto
                     {
+                        ProductId = 2,
                         Currency = "USD",
                         PictureUrl = "https://hfuentesstorage.blob.core.windows.net/images/adidas_white_tshirt.jpg",
                         ProductName = "adidas white t-shirt",
