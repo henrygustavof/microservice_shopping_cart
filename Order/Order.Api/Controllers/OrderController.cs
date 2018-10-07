@@ -7,12 +7,22 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Authorization;
+    using System.Security.Claims;
+    using MassTransit;
+    using Common.Messaging;
 
     [Produces("application/json")]
     [Route("api/orders")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class OrderController : Controller
     {
+        private readonly IBus _bus;
+
+        public OrderController(IBus bus)
+        {
+            _bus = bus;
+        }
+
         [HttpGet]
         [ProducesResponseType(typeof(List<OrderHeaderOutput>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetAll()
@@ -87,6 +97,9 @@
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
         public IActionResult Create([FromBody] OrderInputDto model)
         {
+            var buyerId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            _bus.Publish(new OrderCompletedEvent(buyerId)).Wait();
+            Task.Delay(3000).Wait();
             return Ok("Order Created!");
         }
     }

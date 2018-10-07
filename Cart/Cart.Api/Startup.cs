@@ -20,6 +20,11 @@
     using System;
     using System.Collections.Generic;
     using System.Text;
+    using Autofac;
+    using MassTransit;
+    using Autofac.Extensions.DependencyInjection;
+    using MassTransit.Util;
+    using Messaging;
 
     public class Startup
     {
@@ -29,9 +34,10 @@
         }
 
         public IConfiguration Configuration { get; }
+        public IContainer ApplicationContainer { get; private set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<ICartService, CartService>();
 
@@ -76,7 +82,7 @@
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowSpecificOrigin",
-                    builder => builder
+                    builderCors => builderCors
                         .WithOrigins(allowSpecificOriginUrl)
                         .AllowAnyMethod()
                         .AllowCredentials()
@@ -121,10 +127,44 @@
 
                 c.CustomSchemaIds(x => x.FullName);
             });
+
+            var builder = new ContainerBuilder();
+
+            // register a specific consumer
+            builder.RegisterType<OrderCompletedEventConsumer>();
+
+            builder.Register(context =>
+                {
+                    var busControl = Bus.Factory.CreateUsingRabbitMq(cfg =>
+                    {
+                        var host = cfg.Host(new Uri(Environment.GetEnvironmentVariable("RABBITMQ_URL")), h =>
+                        {
+                            h.Username(Environment.GetEnvironmentVariable("RABBITMQ_USERNAME"));
+                            h.Password(Environment.GetEnvironmentVariable("RABBITMQ_PASSWORD"));
+                        });
+
+                        cfg.ReceiveEndpoint(host, "ShoppingCart" + Guid.NewGuid().ToString(), e =>
+                        {
+                            e.LoadFrom(context);
+
+                        });
+                    });
+
+                    return busControl;
+                })
+                .SingleInstance()
+                .As<IBusControl>()
+                .As<IBus>();
+
+            builder.Populate(services);
+            ApplicationContainer = builder.Build();
+
+            return new AutofacServiceProvider(ApplicationContainer);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApplicationLifetime lifetime)
         {
             if (env.IsDevelopment())
             {
@@ -142,6 +182,10 @@
                .UseStaticFiles()
                .UseSwagger()
                .UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"); });
+
+            var bus = ApplicationContainer.Resolve<IBusControl>();
+            var busHandle = TaskUtil.Await(() => bus.StartAsync());
+            lifetime.ApplicationStopping.Register(() => busHandle.Stop());
         }
     }
 }
