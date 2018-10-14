@@ -59,8 +59,12 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Product.Infrastructure", "Product\Product.Infrastructure\Product.Infrastructure.csproj", "{58C48D93-2714-4287-A9DA-62F48CDE856C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Order", "Order", "{8C8274B7-0B87-4815-8C4C-38309C578239}"
+	ProjectSection(SolutionItems) = preProject
+		Order\Dockerfile = Order\Dockerfile
+		Order\manifest.yml = Order\manifest.yml
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Order.Api", "Order\Order.Api\Order.Api.csproj", "{84A20C10-BFE7-4732-BDB0-C36B9630F80B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Order.Api", "Order\Order.Api\Order.Api.csproj", "{84A20C10-BFE7-4732-BDB0-C36B9630F80B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

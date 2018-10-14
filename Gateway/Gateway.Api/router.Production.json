@@ -5,7 +5,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "shoppingcartcartbasket-order.cfapps.io",
+          "Host": "shoppingcartorder-bright-porcupine.cfapps.io",
           "Port": 80
         }
       ],
@@ -28,7 +28,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "shoppingcartcartbasket-product.cfapps.io",
+          "Host": "shoppingcartorder-bright-porcupine.cfapps.io",
           "Port": 80
         }
       ],
@@ -51,7 +51,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "shoppingcartcartbasket-product.cfapps.io",
+          "Host": "shoppingcartproduct-friendly-camel.cfapps.io",
           "Port": 80
         }
       ],
@@ -70,7 +70,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "shoppingcartcartbasket-product.cfapps.io",
+          "Host": "shoppingcartproduct-friendly-camel.cfapps.io",
           "Port": 80
         }
       ],
@@ -89,7 +89,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "shoppingcartcartbasket-balanced-porcupine.cfapps.io",
+          "Host": "shoppingcartcartbasket-spontaneous-giraffe.cfapps.io",
           "Port": 80
         }
       ],
@@ -112,7 +112,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "shoppingcartcartbasket-balanced-porcupine.cfapps.io",
+          "Host": "shoppingcartcartbasket-spontaneous-giraffe.cfapps.io",
           "Port": 80
         }
       ],
@@ -135,7 +135,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "shoppingcartidentity.cfapps.io",
+          "Host": "shoppingcartidentity-smart-antelope.cfapps.io",
           "Port": 80
         }
       ],
@@ -158,7 +158,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "shoppingcartidentity.cfapps.io",
+          "Host": "shoppingcartidentity-smart-antelope.cfapps.io",
           "Port": 80
         }
       ],
@@ -181,7 +181,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "shoppingcartidentity.cfapps.io",
+          "Host": "shoppingcartidentity-smart-antelope.cfapps.io",
           "Port": 80
         }
       ],
@@ -204,7 +204,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "shoppingcartidentity.cfapps.io",
+          "Host": "shoppingcartidentity-smart-antelope.cfapps.io",
           "Port": 80
         }
       ],
@@ -227,7 +227,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "shoppingcartidentity.cfapps.io",
+          "Host": "shoppingcartidentity-smart-antelope.cfapps.io",
           "Port": 80
 
         }

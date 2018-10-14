@@ -2,7 +2,7 @@
 applications:
 - name: shoppingcart_cartbasket
   random-route: true
-  memory: 512M
+  memory: 128M
 
   docker:
     image: henrygustavo/shopping_cart_cartbasket
