@@ -3,7 +3,6 @@ version: "3.2"
 networks:
   backend:
 
-
 services:
   order:
     image: henrygustavo/shopping_cart_order

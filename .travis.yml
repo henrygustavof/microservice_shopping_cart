@@ -15,6 +15,12 @@ install:
   - export DOTNET_CLI_TELEMETRY_OPTOUT=1
 script:
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+  - docker-compose build
+  - docker push henrygustavo/shopping_cart_cartbasket
+  - docker push henrygustavo/shopping_cart_gateway
+  - docker push henrygustavo/shopping_cart_identity
+  - docker push henrygustavo/shopping_cart_order
+  - docker push henrygustavo/shopping_cart_product
 deploy:
   - provider: cloudfoundry
     username: $PIVOTAL_USERNAME
