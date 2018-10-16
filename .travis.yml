@@ -22,7 +22,7 @@ deploy:
    api: https://api.run.pivotal.io
    organization: $PIVOTAL_ORG
    space: development
-   script: cf push -f ./Identity/manifest.yml
+   script: cf push shoppingcart_identity -f ./Identity/manifest.yml
 notifications:
   email:
     on_success: never
