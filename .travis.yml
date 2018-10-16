@@ -12,7 +12,12 @@ before_install:
   - docker-compose --version
   - docker version
 install:
-- docker-compose build
+  - export DOTNET_CLI_TELEMETRY_OPTOUT=1
+  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+  - docker-compose build
+script:
+  - docker push henrygustavo/shopping_cart_identity
+  - docker push henrygustavo/shopping_cart_cartbasket
 notifications:
   email:
     on_success: never
