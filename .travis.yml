@@ -13,9 +13,8 @@ before_install:
   - docker version
 install:
   - export DOTNET_CLI_TELEMETRY_OPTOUT=1
-  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-  - docker-compose build
 script:
+  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
   - docker push henrygustavo/shopping_cart_identity
 deploy:
    provider: cloudfoundry
@@ -24,8 +23,8 @@ deploy:
    api: https://api.run.pivotal.io
    organization: $PIVOTAL_ORG
    space: development
-   script: cf push shoppingcart_identity --docker-image henrygustavo/shopping_cart_identity
+   script: cf push -f ./Identity/manifest.yml
 notifications:
   email:
     on_success: never
-    on_failure: always
+    on_failure: never
