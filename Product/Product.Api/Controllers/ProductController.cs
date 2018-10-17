@@ -1,8 +1,9 @@
 ﻿namespace Product.Api.Controllers
 {
+    using Application.Dto;
+    using Application.Service;
     using Microsoft.AspNetCore.Mvc;
-    using Product.Application.Dto;
-    using Product.Application.Service;
+    using Microsoft.Extensions.Logging;
     using System.Collections.Generic;
     using System.Net;
 
@@ -11,16 +12,19 @@
     public class ProductController : Controller
     {
         private readonly IProductApplicationService _productApplicationService;
-
-        public ProductController(IProductApplicationService productApplicationService)
+        private readonly ILogger<ProductController> _logger;
+        public ProductController(IProductApplicationService productApplicationService,
+            ILogger<ProductController> logger)
         {
             _productApplicationService = productApplicationService;
+            _logger = logger;
         }
 
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(ProductOutputDto), (int)HttpStatusCode.OK)]
         public IActionResult Get(int id)
         {
+            _logger.LogInformation($"Product Get!:{id}");
             return Ok(_productApplicationService.Get(id));
         }
 
@@ -28,6 +32,7 @@
         [ProducesResponseType(typeof(List<ProductOutputDto>), (int)HttpStatusCode.OK)]
         public IActionResult GetAll()
         {
+            _logger.LogInformation("Product GetAll!");
             return  Ok(_productApplicationService.GetAll());
         }
 
@@ -36,6 +41,7 @@
         public IActionResult Create([FromBody] ProductCreateDto model)
         {
             _productApplicationService.Create(model);
+            _logger.LogInformation("Product Create!");
             return Ok("Product Created!");
         }
     }
