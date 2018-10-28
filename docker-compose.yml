@@ -7,8 +7,8 @@ services:
   cartworker:
     image: henrygustavo/shopping_cart_cartworker
     build: 
-      context: ./Cart.Worker
-      dockerfile: Dockerfile
+      context: ./Cart
+      dockerfile: DockerfileWorker
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
     container_name: cartworker
