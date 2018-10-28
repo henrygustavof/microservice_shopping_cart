@@ -61,8 +61,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Product.Infrastructure", "P
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CartWorker", "CartWorker", "{829F575E-BA39-4980-AE2D-0DF8C44B493F}"
 	ProjectSection(SolutionItems) = preProject
-		..\NServiceBus_v02\Billing\Dockerfile = ..\NServiceBus_v02\Billing\Dockerfile
-		..\NServiceBus_v02\Billing\Billing.EndPoint\manifest.yml = ..\NServiceBus_v02\Billing\Billing.EndPoint\manifest.yml
+		Cart.Worker\Dockerfile = Cart.Worker\Dockerfile
+		Cart.Worker\manifest.yml = Cart.Worker\manifest.yml
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cart.Worker", "Cart.Worker\Cart.Worker.csproj", "{0BE6D869-D688-4B4A-A528-629497DA567B}"

@@ -1,0 +1,11 @@
+﻿---
+applications:
+- name: shoppingcart_cartworker
+  memory: 128M
+  docker:
+    image: henrygustavo/shopping_cart_cartworker
+  no-route: true
+  stack: cflinuxfs2   
+  health-check-type: process
+  services:
+  - hfuentes-rmq
