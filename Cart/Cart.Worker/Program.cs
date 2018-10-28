@@ -31,7 +31,7 @@
 
                     _database.KeyDeleteAsync(buyerId);
 
-                    Console.WriteLine(" [x] Received {0} and deleted cache", buyerId);
+                    Console.WriteLine(" [x] Received {0} and deleted cache!", buyerId);
                 };
                 channel.BasicConsume(queue: "order.procesed", autoAck: true, consumer: consumer);
 
