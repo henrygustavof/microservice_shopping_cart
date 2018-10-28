@@ -5,8 +5,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5004
+          "Host": "orders-dycs.cfapps.io",
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/orders",
@@ -28,8 +28,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5004
+          "Host": "orders-dycs.cfapps.io",
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/orders/{everything}",

@@ -5,7 +5,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "shoppingcartorder-bright-porcupine.cfapps.io",
+          "Host": "orders-dycs.cfapps.io",
           "Port": 80
         }
       ],
@@ -28,7 +28,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "shoppingcartorder-bright-porcupine.cfapps.io",
+          "Host": "orders-dycs.cfapps.io",
           "Port": 80
         }
       ],

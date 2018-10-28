@@ -1,11 +1,11 @@
 ﻿namespace Cart.Application.Service
 {
-    using System.Threading.Tasks;
     using AutoMapper;
-    using Dto;
-    using Domain.Repository;
     using Domain.Entity;
+    using Domain.Repository;
+    using Dto;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     public class CartService : ICartService
     {
