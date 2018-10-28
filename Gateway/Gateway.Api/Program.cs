@@ -3,11 +3,34 @@
     using Microsoft.AspNetCore;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
+    using Serilog;
+    using Serilog.Events;
+    using System;
     public class Program
     {
         public static void Main(string[] args)
         {
-            BuildWebHost(args).Run();
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+                .Enrich.FromLogContext()
+                .WriteTo.ApplicationInsightsEvents(Environment.GetEnvironmentVariable("APPLICATION_INSIGHTS"))
+                .CreateLogger();
+
+            try
+            {
+                Log.Information("Getting the Gateway API running...");
+
+                BuildWebHost(args).Run();
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "Gateway API  terminated unexpectedly");
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
         }
 
         public static IWebHost BuildWebHost(string[] args) =>
@@ -21,6 +44,7 @@
                     .AddEnvironmentVariables();
              })
                  .UseStartup<Startup>()
+                 .UseSerilog()
                  .Build();
     }
 

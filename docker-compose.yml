@@ -3,12 +3,11 @@ version: "3.2"
 networks:
   backend:
 
-
 services:
   cartworker:
     image: henrygustavo/shopping_cart_order
     build: 
-      context: ./cart.worker
+      context: ./Cart.Worker
       dockerfile: Dockerfile
     environment: 
       - ASPNETCORE_ENVIRONMENT=Production
@@ -21,7 +20,7 @@ services:
   product:
     image: henrygustavo/shopping_cart_product
     build: 
-      context: ./product
+      context: ./Product
       dockerfile: Dockerfile
     environment: 
       - ASPNETCORE_ENVIRONMENT=Production
@@ -34,7 +33,7 @@ services:
   cart:
     image: henrygustavo/shopping_cart_cartbasket
     build: 
-      context: ./cart
+      context: ./Cart
       dockerfile: Dockerfile
     environment: 
       - ASPNETCORE_ENVIRONMENT=Production
@@ -47,7 +46,7 @@ services:
   identity:
     image: henrygustavo/shopping_cart_identity
     build: 
-      context: ./identity
+      context: ./Identity
       dockerfile: Dockerfile
     environment: 
       - ASPNETCORE_ENVIRONMENT=Production
@@ -60,7 +59,7 @@ services:
   gateway:
     image: henrygustavo/shopping_cart_gateway
     build: 
-      context: ./gateway
+      context: ./Gateway
       dockerfile: Dockerfile
     environment: 
       - ASPNETCORE_ENVIRONMENT=Production

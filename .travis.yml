@@ -1,0 +1,63 @@
+language: csharp
+dist: trusty
+sudo: required
+mono: none
+dotnet: 2.0.0
+branches:
+  only:
+    - master
+services:
+  - docker
+before_install:
+  - docker-compose --version
+  - docker version
+install:
+  - export DOTNET_CLI_TELEMETRY_OPTOUT=1
+script:
+  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+  - docker-compose build
+  - docker push henrygustavo/shopping_cart_cartbasket
+  - docker push henrygustavo/shopping_cart_gateway
+  - docker push henrygustavo/shopping_cart_identity
+  - docker push henrygustavo/shopping_cart_order
+  - docker push henrygustavo/shopping_cart_product
+deploy:
+  - provider: cloudfoundry
+    username: $PIVOTAL_USERNAME
+    password: $PIVOTAL_PASSWORD
+    api: https://api.run.pivotal.io
+    organization: $PIVOTAL_ORG
+    space: development
+    manifest: ./Cart/manifest.yml
+  - provider: cloudfoundry
+    username: $PIVOTAL_USERNAME
+    password: $PIVOTAL_PASSWORD
+    api: https://api.run.pivotal.io
+    organization: $PIVOTAL_ORG
+    space: development
+    manifest: ./Gateway/manifest.yml
+  - provider: cloudfoundry
+    username: $PIVOTAL_USERNAME
+    password: $PIVOTAL_PASSWORD
+    api: https://api.run.pivotal.io
+    organization: $PIVOTAL_ORG
+    space: development
+    manifest: ./Identity/manifest.yml
+  - provider: cloudfoundry
+    username: $PIVOTAL_USERNAME
+    password: $PIVOTAL_PASSWORD
+    api: https://api.run.pivotal.io
+    organization: $PIVOTAL_ORG
+    space: development
+    manifest: ./Order/manifest.yml
+  - provider: cloudfoundry
+    username: $PIVOTAL_USERNAME
+    password: $PIVOTAL_PASSWORD
+    api: https://api.run.pivotal.io
+    organization: $PIVOTAL_ORG
+    space: development
+    manifest: ./Product/manifest.yml
+notifications:
+  email:
+    on_success: change
+    on_failure: change

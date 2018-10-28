@@ -9,6 +9,7 @@
     using System.Threading.Tasks;
     using System.Security.Claims;
     using System.Collections.Generic;
+    using Microsoft.Extensions.Logging;
 
     [Produces("application/json")]
     [Route("api/carts")]
@@ -16,9 +17,11 @@
     public class CartController : Controller
     {
         private readonly ICartService _cartService;
-        public CartController(ICartService cartService)
+        private readonly ILogger<CartController> _logger;
+        public CartController(ICartService cartService, ILogger<CartController> logger)
         {
             _cartService = cartService;
+            _logger = logger;
 
         }
 
@@ -27,6 +30,9 @@
         public async Task<IActionResult> Get()
         {
             var buyerId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            _logger.LogInformation($"Cart Get! buyerId:{buyerId}");
+
             var basket = await _cartService.GetCartAsync(buyerId);
                         
             return Ok(basket);
@@ -38,6 +44,8 @@
         {
             var buyerId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
+            _logger.LogInformation($"Cart Post! buyerId:{buyerId}");
+
             var basket = await _cartService.UpdateCartAsync(buyerId, product);
 
             return Ok(basket);
@@ -48,6 +56,9 @@
         public async Task<IActionResult> Delete()
         {
             var buyerId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            _logger.LogInformation($"Cart Delete! buyerId:{buyerId}");
+
             await _cartService.DeleteCartAsync(buyerId);
 
             return Ok("cart was deleted");
@@ -58,6 +69,9 @@
         public async Task<IActionResult> DeleteProduct(int productId)
         {
             var buyerId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            _logger.LogInformation($"Cart DeleteProduct! buyerId:{buyerId}, ProductId: {productId}");
+
             return Ok( await _cartService.DeleteCartProductAsync(productId, buyerId));
 
         }

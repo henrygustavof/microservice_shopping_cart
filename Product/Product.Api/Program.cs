@@ -4,8 +4,11 @@
     using Microsoft.AspNetCore;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.DependencyInjection;
-    using Product.Infrastructure.Migrations.MySQL;
+    using Infrastructure.Migrations.MySQL;
     using System;
+    using Serilog;
+    using Serilog.Events;
+
     public class Program
     {
         public static void Main(string[] args)
@@ -15,12 +18,33 @@
             {
                 UpdateDatabase(scope.ServiceProvider);
             }
-            CreateWebHostBuilder(args).Build().Run();
+
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+                .Enrich.FromLogContext()
+                .WriteTo.ApplicationInsightsEvents(Environment.GetEnvironmentVariable("APPLICATION_INSIGHTS"))
+                .CreateLogger();
+
+            try
+            {
+                Log.Information("Getting the Product API running...");
+
+                BuildWebHost(args).Run();
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, " Product API  terminated unexpectedly");
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+        public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+                .UseStartup<Startup>().UseSerilog().Build();
 
         private static IServiceProvider CreateServices()
         {
