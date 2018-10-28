@@ -5,11 +5,11 @@ networks:
 
 services:
   cartworker:
-    image: henrygustavo/shopping_cart_order
+    image: henrygustavo/shopping_cart_cartworker
     build: 
       context: ./Cart.Worker
       dockerfile: Dockerfile
-    environment: 
+    environment:
       - ASPNETCORE_ENVIRONMENT=Production
     container_name: cartworker
     ports:

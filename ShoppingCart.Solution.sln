@@ -59,14 +59,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Product.Application", "Prod
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Product.Infrastructure", "Product\Product.Infrastructure\Product.Infrastructure.csproj", "{58C48D93-2714-4287-A9DA-62F48CDE856C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Order", "Order", "{8C8274B7-0B87-4815-8C4C-38309C578239}"
-	ProjectSection(SolutionItems) = preProject
-		Order\Dockerfile = Order\Dockerfile
-		Order\manifest.yml = Order\manifest.yml
-	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Order.Api", "Order\Order.Api\Order.Api.csproj", "{84A20C10-BFE7-4732-BDB0-C36B9630F80B}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CartWorker", "CartWorker", "{829F575E-BA39-4980-AE2D-0DF8C44B493F}"
 	ProjectSection(SolutionItems) = preProject
 		..\NServiceBus_v02\Billing\Dockerfile = ..\NServiceBus_v02\Billing\Dockerfile
@@ -133,10 +125,6 @@ Global
 		{58C48D93-2714-4287-A9DA-62F48CDE856C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58C48D93-2714-4287-A9DA-62F48CDE856C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58C48D93-2714-4287-A9DA-62F48CDE856C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{84A20C10-BFE7-4732-BDB0-C36B9630F80B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{84A20C10-BFE7-4732-BDB0-C36B9630F80B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{84A20C10-BFE7-4732-BDB0-C36B9630F80B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{84A20C10-BFE7-4732-BDB0-C36B9630F80B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0BE6D869-D688-4B4A-A528-629497DA567B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0BE6D869-D688-4B4A-A528-629497DA567B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0BE6D869-D688-4B4A-A528-629497DA567B}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -159,7 +147,6 @@ Global
 		{9D8A5FBF-A796-4371-92CC-FB3848B3EDB4} = {3628801B-6FEE-4903-9523-1EDB5A31F17F}
 		{6A1D1B1C-3758-476E-8866-9F557A33EF8E} = {3628801B-6FEE-4903-9523-1EDB5A31F17F}
 		{58C48D93-2714-4287-A9DA-62F48CDE856C} = {3628801B-6FEE-4903-9523-1EDB5A31F17F}
-		{84A20C10-BFE7-4732-BDB0-C36B9630F80B} = {8C8274B7-0B87-4815-8C4C-38309C578239}
 		{0BE6D869-D688-4B4A-A528-629497DA567B} = {829F575E-BA39-4980-AE2D-0DF8C44B493F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
