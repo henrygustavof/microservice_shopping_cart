@@ -5,14 +5,14 @@ networks:
 
 
 services:
-  order:
+  cartworker:
     image: henrygustavo/shopping_cart_order
     build: 
-      context: ./order
+      context: ./cart.worker
       dockerfile: Dockerfile
     environment: 
       - ASPNETCORE_ENVIRONMENT=Production
-    container_name: orderapi
+    container_name: cartworker
     ports:
       - "9004:80"
     networks:
