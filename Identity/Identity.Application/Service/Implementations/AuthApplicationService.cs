@@ -138,7 +138,7 @@
 
             }
 
-            if (!user.EmailConfirmed)
+            if (Convert.ToBoolean(_config["Account:RequireConfirmedEmail"]) && !user.EmailConfirmed)
             {
                 notification.AddError("Please confirm your email or contact with the web master");
                 return notification;
