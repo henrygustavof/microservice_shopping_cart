@@ -59,12 +59,27 @@
 
             var userResult = await _userInMgr.CreateAsync(user, model.Password);
 
+            if (!userResult.Succeeded)
+            {
+                notification.AddError(string.Join(". ", from item in userResult.Errors select item.Description));
+
+                throw new ArgumentException(notification.ErrorMessage());
+            }
+
             var roleResult = await _userInMgr.AddToRoleAsync(user, Roles.Member);
+
+            if (!roleResult.Succeeded)
+            {
+                notification.AddError(string.Join(". ", from item in roleResult.Errors select item.Description));
+
+                throw new ArgumentException(notification.ErrorMessage());
+            }
+
             var claimResult = await _userInMgr.AddClaimAsync(user, new Claim(ClaimTypes.Role, Roles.Member));
 
-            if (!userResult.Succeeded || !roleResult.Succeeded || !claimResult.Succeeded)
+            if (!claimResult.Succeeded)
             { 
-                notification.AddError(string.Join(". ", from item in userResult.Errors select item.Description));
+                notification.AddError(string.Join(". ", from item in claimResult.Errors select item.Description));
 
                 throw new ArgumentException(notification.ErrorMessage());
             }
