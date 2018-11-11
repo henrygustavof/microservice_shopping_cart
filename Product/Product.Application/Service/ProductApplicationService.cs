@@ -10,19 +10,22 @@
     using Domain.Repository;
     using Domain.Entity;
     using Product.Application.Contracts;
+    using Product.Infrastructure.Persistence.Dapper.Contracts;
 
     public class ProductApplicationService : IProductApplicationService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IProductRepository _productRepository;
         private readonly ProductCreateAssembler _productCreateAssembler;
-
+        private readonly IProductQueries _productQueries;
         public ProductApplicationService(IUnitOfWork unitOfWork,
             IProductRepository productRepository,
-            ProductCreateAssembler productCreateAssembler)
+            IProductQueries productQueries,
+        ProductCreateAssembler productCreateAssembler)
         {
             _unitOfWork = unitOfWork;
             _productRepository = productRepository;
+            _productQueries = productQueries;
             _productCreateAssembler = productCreateAssembler;
         }
 
@@ -69,12 +72,12 @@
 
         public PaginationOutputDto GetAll(int page, int pageSize, string sortBy, string sortDirection)
         {
-           // var entities = _unitOfWork.Customers.GetAll(page, pageSize, sortBy, sortDirection).ToList();
+            var entities = _productQueries.GetAll(page, pageSize, sortBy, sortDirection).ToList();
 
             var pagedRecord = new PaginationOutputDto
             {
-                //Content = Mapper.Map<List<CustomerOutputDto>>(entities),
-                //TotalRecords = _unitOfWork.Customers.CountGetAll(),
+                Content = _productCreateAssembler.FromEntityList(entities),
+                TotalRecords = _productQueries.CountAll(),
                 CurrentPage = page,
                 PageSize = pageSize
             };

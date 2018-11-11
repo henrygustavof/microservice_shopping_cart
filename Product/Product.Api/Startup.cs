@@ -15,6 +15,8 @@
     using Application.Service;
     using Application.Assembler;
     using Product.Application.Contracts;
+    using Product.Infrastructure.Persistence.Dapper.Contracts;
+    using Product.Infrastructure.Persistence.Dapper.Queries;
 
     public class Startup
     {
@@ -53,6 +55,8 @@
 
             services.AddTransient<IProductApplicationService, ProductApplicationService>();
             services.AddTransient<ICategoryApplicationService, CategoryApplicationService>();
+
+            services.AddTransient<IProductQueries, ProductQueries>();
 
             services.AddSwaggerGen(c =>
             {

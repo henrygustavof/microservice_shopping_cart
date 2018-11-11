@@ -29,18 +29,19 @@
             return Ok(_productApplicationService.Get(id));
         }
 
-        [HttpGet]
-        [ProducesResponseType(typeof(List<ProductOutputDto>), (int)HttpStatusCode.OK)]
-        public IActionResult GetAll()
-        {
-            _logger.LogInformation("Product GetAll!");
-            return  Ok(_productApplicationService.GetAll());
-        }
+        //[HttpGet]
+        //[ProducesResponseType(typeof(List<ProductOutputDto>), (int)HttpStatusCode.OK)]
+        //public IActionResult GetAll()
+        //{
+          
+        //    return  Ok(_productApplicationService.GetAll());
+        //}
 
         [HttpGet]
         [ProducesResponseType(typeof(PaginationOutputDto), 200)]
-        public IActionResult GetAll(int page = 1, int pageSize = 10, string sortBy = "id", string sortDirection = "desc")
+        public IActionResult GetAll(int page = 1, int pageSize = 10, string sortBy = "product_id", string sortDirection = "asc")
         {
+            _logger.LogInformation("Product GetAll!");
             return Ok(_productApplicationService.GetAll(page, pageSize, sortBy, sortDirection));
         }
 
