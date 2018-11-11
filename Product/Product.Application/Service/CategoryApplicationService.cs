@@ -9,6 +9,8 @@
     using Dto;
     using Domain.Repository;
     using Domain.Entity;
+    using Product.Application.Contracts;
+
     public class CategoryApplicationService : ICategoryApplicationService
     {
         private readonly IUnitOfWork _unitOfWork;

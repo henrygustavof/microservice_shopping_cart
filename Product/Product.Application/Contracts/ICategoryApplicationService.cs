@@ -1,4 +1,4 @@
-﻿namespace Product.Application.Service
+﻿namespace Product.Application.Contracts
 {
     using System.Collections.Generic;
     using Product.Application.Dto;

@@ -1,4 +1,4 @@
-﻿namespace Product.Application.Service
+﻿namespace Product.Application.Contracts
 {
     using System.Collections.Generic;
     using Dto;
@@ -8,6 +8,8 @@
         ProductOutputDto Get(int id);
         List<ProductOutputDto> GetAll();
         void Create(ProductCreateDto productCreateDto);
+
+        PaginationOutputDto GetAll(int page, int pageSize, string sortBy, string sortDirection);
 
     }
 }

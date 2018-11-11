@@ -14,6 +14,7 @@
     using Infrastructure.Persistence.NHibernate.Repository;
     using Application.Service;
     using Application.Assembler;
+    using Product.Application.Contracts;
 
     public class Startup
     {

@@ -4,6 +4,7 @@
     using Application.Service;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
+    using Product.Application.Contracts;
     using System.Collections.Generic;
     using System.Net;
 
@@ -34,6 +35,13 @@
         {
             _logger.LogInformation("Product GetAll!");
             return  Ok(_productApplicationService.GetAll());
+        }
+
+        [HttpGet]
+        [ProducesResponseType(typeof(PaginationOutputDto), 200)]
+        public IActionResult GetAll(int page = 1, int pageSize = 10, string sortBy = "id", string sortDirection = "desc")
+        {
+            return Ok(_productApplicationService.GetAll(page, pageSize, sortBy, sortDirection));
         }
 
         [HttpPost]

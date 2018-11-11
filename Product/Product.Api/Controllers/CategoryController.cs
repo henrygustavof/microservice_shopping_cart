@@ -1,6 +1,7 @@
 ﻿namespace Product.Api.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+    using Product.Application.Contracts;
     using Product.Application.Dto;
     using Product.Application.Service;
     using System.Collections.Generic;

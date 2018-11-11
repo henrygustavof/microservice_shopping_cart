@@ -9,6 +9,8 @@
     using Dto;
     using Domain.Repository;
     using Domain.Entity;
+    using Product.Application.Contracts;
+
     public class ProductApplicationService : IProductApplicationService
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -63,6 +65,21 @@
                 throw new ArgumentException(notification.ErrorMessage());
 
             }
+        }
+
+        public PaginationOutputDto GetAll(int page, int pageSize, string sortBy, string sortDirection)
+        {
+           // var entities = _unitOfWork.Customers.GetAll(page, pageSize, sortBy, sortDirection).ToList();
+
+            var pagedRecord = new PaginationOutputDto
+            {
+                //Content = Mapper.Map<List<CustomerOutputDto>>(entities),
+                //TotalRecords = _unitOfWork.Customers.CountGetAll(),
+                CurrentPage = page,
+                PageSize = pageSize
+            };
+
+            return pagedRecord;
         }
 
         private Notification ValidateModel(ProductCreateDto model)
