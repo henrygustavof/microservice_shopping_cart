@@ -2,7 +2,8 @@
 applications:
 - name: shoppingcart_product
   random-route: true
-  memory: 128M
+  memory: 512M
+  disk_quota: 2GB
 
   docker:
     image: henrygustavo/shopping_cart_product
